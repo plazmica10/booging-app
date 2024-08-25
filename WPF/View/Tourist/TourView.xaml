@@ -1,0 +1,119 @@
+﻿<Page
+x:Class="BookingApp.WPF.View.Tourist.TourView"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+xmlns:local="clr-namespace:BookingApp.WPF.View.Tourist"
+xmlns:command="clr-namespace:BookingApp.Command"
+xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
+mc:Ignorable="d" 
+d:DesignHeight="750" d:DesignWidth="430"
+Title="🚂 Tour"
+>
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="TourViewStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <ScrollViewer Style="{StaticResource PageScrollViewer}">
+        <StackPanel>
+            <Border BorderBrush="{StaticResource GlobalBorderDark}" BorderThickness="0 0 0 2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <emoji:TextBlock Grid.Column="0" Style="{StaticResource TitleEmojiStyle}" Text="🚂"/>
+                    <TextBlock Grid.Column="1" Style="{StaticResource TitleStyle}" Text="{Binding Name}"/>
+                </Grid>
+            </Border>
+
+            <StackPanel>
+                <emoji:TextBlock Style="{StaticResource FieldStyle}" Text="🤔 Description:"/>
+
+                <Border Style="{StaticResource DescBorderStyle}">
+                    <TextBlock Style="{StaticResource DescStyle}" Text="{Binding Description}"/>
+                </Border>
+
+            </StackPanel>
+
+            <Grid Margin="10 5 5 5">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <emoji:TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource FieldNameStyle}" Text="🌎 Location:"/>
+                <emoji:TextBlock Grid.Column="0" Grid.Row="1" Style="{StaticResource FieldNameStyle}" Text="🗣 Language:"/>
+                <emoji:TextBlock Grid.Column="0" Grid.Row="2" Style="{StaticResource FieldNameStyle}" Text="👥 Max People:"/>
+                <emoji:TextBlock Grid.Column="0" Grid.Row="3" Style="{StaticResource FieldNameStyle}" Text="⌚ Starts:"/>
+                <emoji:TextBlock Grid.Column="0" Grid.Row="4" Style="{StaticResource FieldNameStyle}" Text="⌛ Duration:"/>
+                <emoji:TextBlock Grid.Column="0" Grid.Row="5" Style="{StaticResource FieldNameStyle}" Text="ℹ️ Status:"/>
+
+                <TextBlock Grid.Column="1" Grid.Row="0" Style="{StaticResource FieldValueStyle}" Text="{Binding Location}"/>
+                <TextBlock Grid.Column="1" Grid.Row="1" Style="{StaticResource FieldValueStyle}" Text="{Binding Language}"/>
+                <TextBlock Style="{StaticResource FieldValueStyle}" Grid.Column="1" Grid.Row="2">
+                    <TextBlock Text="{Binding SpaceLeft}"/>
+                    <TextBlock Text="/" />
+                    <TextBlock Text="{Binding MaxTourists}"/>
+                </TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="3" Style="{StaticResource FieldValueStyle}" Text="{Binding StartsAt}"/>
+                <TextBlock Grid.Column="1" Grid.Row="4" Style="{StaticResource FieldValueStyle}" Text="{Binding Duration}"/>
+                <emoji:TextBlock Grid.Column="1" Grid.Row="5" Style="{StaticResource FieldValueStyle}" Text="{Binding StatusText}"/>
+            </Grid>
+
+            <Border>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="40"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <RepeatButton Grid.Row="0" Command="{Binding PictureScrollLeftCommand}"
+                                  Grid.Column="0" Style="{StaticResource PicNavBtnStyle}"
+                                  Content="◀️"/>
+                    <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource PicturesBorder}">
+                        <StackPanel>
+                            <Image Source="{Binding PictureLocation}" Stretch="Uniform"/>
+                        </StackPanel>
+                    </Border>
+                    <RepeatButton Grid.Row="0" Command="{Binding PictureScrollRightCommand}"
+                                  Grid.Column="2" Style="{StaticResource PicNavBtnStyle}"
+                                  Content="▶️"/>
+
+                    <Slider Style="{StaticResource PicNavSliderStyle}"
+                            Margin="10" Grid.Row="1" Grid.Column="1"></Slider>
+                </Grid>
+            </Border>
+            
+
+            <emoji:TextBlock Style="{StaticResource FieldStyle}" Text="🚩 Peak Points:"/>
+            <ListView Style="{StaticResource PeakPointsListView}"
+                      ItemsSource="{Binding PeakPoints}"/>
+
+            <StackPanel Style="{StaticResource CoolButtonStackPanel}">
+                <Button Content="📝 Make Reservations"
+                        Command="{Binding ReserveCommand}"
+                        Style="{StaticResource CoolButtonStyle}"/>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

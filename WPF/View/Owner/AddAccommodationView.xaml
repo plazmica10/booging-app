@@ -1,0 +1,230 @@
+﻿<Page x:Class="BookingApp.WPF.View.Owner.AddAccommodationView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.WPF.View.Owner"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+      mc:Ignorable="d" 
+      d:DesignHeight="750" d:DesignWidth="1300"
+      Title="AddAccommodationView">
+
+    <Page.Resources>
+        <Style x:Key="FormLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="20"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="Margin" Value="0 0 20 0"></Setter>
+        </Style>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Margin" Value="0 0 20 0"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Padding="0,5,0,5" Background="{TemplateBinding Background}" BorderThickness="0" BorderBrush="White" CornerRadius="7">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Border Padding="20 20 20 5" BorderThickness="0" Background="White">
+
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="520"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock FontSize="50" FontWeight="Bold" Grid.Row="0" VerticalAlignment="Center" Text="Enter information about your accommodation"/>
+
+            <Grid Grid.Row="1" Grid.RowSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Left side -->
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="170"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource FormLabel}">Name</Label>
+                    <xctk:WatermarkTextBox Grid.Row="0" Grid.Column="1" Height="40" Width="300" FontSize="20" VerticalAlignment="Bottom" Margin="0 0 0 11" Watermark="Name" Text="{Binding AccommName}">
+                        <xctk:WatermarkTextBox.BorderBrush>
+                            <SolidColorBrush Color="Black"/>
+                        </xctk:WatermarkTextBox.BorderBrush>
+                        <xctk:WatermarkTextBox.BorderThickness>
+                            <Thickness Left="0" Top="0" Right="0" Bottom="2"/>
+                        </xctk:WatermarkTextBox.BorderThickness>
+                    </xctk:WatermarkTextBox>
+
+                    <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource FormLabel}">Type</Label>
+                    <Border Grid.Row="1" Grid.Column="1" Background="Transparent" BorderBrush="Black" BorderThickness="0 0 0 2" Height="40" Width="300" VerticalAlignment="Bottom" Margin="0 0 0 11">
+                        <Grid>
+                            <Popup IsOpen="{Binding ShowPopup}" StaysOpen="False">
+                                <ListBox ItemsSource="{Binding AccommodationTypes}" SelectedItem="{Binding SelectedType}" Background="White">
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem">
+                                            <Setter Property="Background" Value="White"/>
+                                            <Setter Property="Foreground" Value="Black"/>
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+                                </ListBox>
+                            </Popup>
+                            <TextBlock Text="Type" FontSize="20" Foreground="Gray" Margin="4 0 0 0" Height="30">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding TypeVisible}" Value="False">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <Button Cursor="Hand" Command="{Binding PopupCommand}">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition Width="50"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" FontSize="20" Foreground="Black" Margin="4 0 20 0" Height="30" Text="{Binding SelectedType}"/>
+                                            <materialIcons:MaterialIcon Grid.Column="1" Background="Transparent" Foreground="Gray" Kind="MenuDown" Height="50" Width="50" HorizontalAlignment="Right" Margin="0,2,0,0" VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </Grid>
+                    </Border>
+
+                    <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource FormLabel}">Number of guests</Label>
+                    <Border Grid.Row="2" Grid.Column="1" Height="40" Width="70" HorizontalAlignment="Left" BorderBrush="Black" BorderThickness="0 0 0 2">
+                        <xctk:IntegerUpDown Minimum="1" FontSize="20" Text="{Binding MaxGuests}">
+                            <xctk:IntegerUpDown.Style>
+                                <Style TargetType="xctk:IntegerUpDown">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                </Style>
+                            </xctk:IntegerUpDown.Style>
+                        </xctk:IntegerUpDown>
+                    </Border>
+
+                    <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource FormLabel}">Minimum days for reservation</Label>
+                    <Border Grid.Row="3" Grid.Column="1" Height="40" Width="70" HorizontalAlignment="Left" BorderBrush="Black" BorderThickness="0 0 0 2">
+                        <xctk:IntegerUpDown Minimum="1" FontSize="20" Text="{Binding MinDays}">
+                            <xctk:IntegerUpDown.Style>
+                                <Style TargetType="xctk:IntegerUpDown">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                </Style>
+                            </xctk:IntegerUpDown.Style>
+                        </xctk:IntegerUpDown>
+                    </Border>
+
+                    <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource FormLabel}">Refund period</Label>
+                    <Border Grid.Row="4" Grid.Column="1" Height="40" Width="70" HorizontalAlignment="Left" BorderBrush="Black" BorderThickness="0 0 0 2">
+                        <xctk:IntegerUpDown Minimum="1" FontSize="20" Text="{Binding RefundPeriod}">
+                            <xctk:IntegerUpDown.Style>
+                                <Style TargetType="xctk:IntegerUpDown">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                </Style>
+                            </xctk:IntegerUpDown.Style>
+                        </xctk:IntegerUpDown>
+                    </Border>
+
+                    <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource FormLabel}">Location</Label>
+                    <!--<xctk:WatermarkTextBox Grid.Row="5" Grid.Column="1" Height="40" Width="300" FontSize="20" VerticalAlignment="Bottom" Margin="0 0 0 11" Watermark="Location" Text="{Binding LocationStr}">
+                        <xctk:WatermarkTextBox.BorderBrush>
+                            <SolidColorBrush Color="Black"/>
+                        </xctk:WatermarkTextBox.BorderBrush>
+                        <xctk:WatermarkTextBox.BorderThickness>
+                            <Thickness Left="0" Top="0" Right="0" Bottom="2"/>
+                        </xctk:WatermarkTextBox.BorderThickness>
+                    </xctk:WatermarkTextBox>-->
+                    <local:AutoCompleteLocation Grid.Row="5" Grid.Column="1" Height="40" Width="300" FontSize="20" VerticalAlignment="Bottom" Margin="0 0 0 11"
+                        x:Name="selectedLocation"
+                        SelectedLocation="{Binding SelectedLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    />
+
+                    <Label Grid.Row="6" Grid.Column="0" Style="{StaticResource FormLabel}">Description</Label>
+                    <xctk:WatermarkTextBox Grid.Row="6" Grid.Column="1" Height="130" Width="300" FontSize="20" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0 20 0 11" Watermark="Description" Text="{Binding Description}">
+                        <xctk:WatermarkTextBox.BorderBrush>
+                            <SolidColorBrush Color="Black"/>
+                        </xctk:WatermarkTextBox.BorderBrush>
+                        <xctk:WatermarkTextBox.BorderThickness>
+                            <Thickness Left="2" Top="2" Right="2" Bottom="2"/>
+                        </xctk:WatermarkTextBox.BorderThickness>
+                    </xctk:WatermarkTextBox>
+
+                </Grid>
+
+                <!-- Right side -->
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Button Grid.Row="0" Margin="0 23 0 0" Height="40" Style="{StaticResource ButtonStyle}" Command="{Binding AddPhotoCommand}" Content="Upload image"/>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Cursor="Hand" Command="{Binding NextPhotoCommand}">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <materialIcons:MaterialIcon Background="Transparent" Foreground="Gray" Kind="MenuLeft" Height="70" Width="70" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center"/>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Image Height="300" Width="300" Stretch="Fill" Source="{Binding CurrentPhoto}">
+                            <Image.Clip>
+                                <RectangleGeometry RadiusX="20" RadiusY="20" Rect="0, 0, 300, 300"/>
+                            </Image.Clip>
+                        </Image>
+                        <Button Cursor="Hand" Command="{Binding PrevPhotoCommand}">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <materialIcons:MaterialIcon Background="Transparent" Foreground="Gray" Kind="MenuRight" Height="70" Width="70" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center"/>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+
+            <StackPanel Grid.Row="2" Margin="0 40 0 0" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Width="100" Style="{StaticResource ButtonStyle}" Command="{Binding SaveCommand}">Save</Button>
+                <Button Width="100" Margin="0 0 0 0" Style="{StaticResource ButtonStyle}" Command="{Binding CancelCommand}">Cancel</Button>
+            </StackPanel>
+        </Grid>
+
+    </Border>
+</Page>

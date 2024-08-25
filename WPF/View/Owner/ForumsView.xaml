@@ -1,0 +1,349 @@
+﻿<Page x:Class="BookingApp.WPF.View.Owner.ForumsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.WPF.View.Owner"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+      mc:Ignorable="d" 
+      d:DesignHeight="750" d:DesignWidth="1300"
+      Title="Booging">
+
+    <Page.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Margin" Value="0 0 20 0"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Padding="0,5,0,5" Background="{TemplateBinding Background}" BorderThickness="0" BorderBrush="White" CornerRadius="7">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Margin="50 10 20 10" BorderBrush="Black" BorderThickness="2" CornerRadius="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Margin="10 0 10 0" FontSize="20" FontWeight="Bold" VerticalAlignment="Center">Forums</Label>
+
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer.Resources>
+                        <Style TargetType="{x:Type ScrollBar}">
+                            <Setter Property="Width" Value="20"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                                        <Grid>
+                                            <Track x:Name="PART_Track" Grid.Column="0" IsDirectionReversed="True">
+                                                <Track.Thumb>
+                                                    <Thumb Style="{DynamicResource ScrollBarThumb}" />
+                                                </Track.Thumb>
+                                            </Track>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                        <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
+                            <Setter Property="Background" Value="LightGray"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="Width" Value="15"></Setter>
+                            <Setter Property="Margin" Value="0 0 4 0"></Setter>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Thumb}">
+                                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="10"/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ScrollViewer.Resources>
+
+                    <ItemsControl ItemsSource="{Binding Forums}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+
+                                <Button Cursor="Hand" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Padding="0" Background="Transparent" BorderThickness="0" Margin="0" Command="{Binding Path=DataContext.OpenForumCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding Id}">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <ContentPresenter Content="{TemplateBinding Content}"/>
+                                        </ControlTemplate>
+                                    </Button.Template>
+
+
+                                    <Border x:Name="ItemBorder" Background="Transparent"  BorderThickness="2" Margin="5" Padding="5" CornerRadius="20">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Setter Property="BorderBrush" Value="Black"></Setter>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Selected}" Value="True">
+                                                        <Setter Property="BorderBrush" Value="Blue"></Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Image Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Width="100">
+                                                <Image.Source>
+                                                    <BitmapImage DecodePixelWidth="100" UriSource="{Binding UserPhoto}"/>
+                                                </Image.Source>
+                                            </Image>
+
+                                            <Grid Grid.Column="1">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+
+                                                <TextBlock Grid.Row="0" Margin="0" FontSize="16" FontWeight="Bold" Text="{Binding Title}" TextTrimming="CharacterEllipsis" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
+                                                <TextBlock Grid.Row="1" Margin="0" FontSize="14" FontWeight="Bold" Text="{Binding Loc}"/>
+                                                <TextBlock Grid.Row="2" Margin="0" FontSize="14" FontWeight="Bold" Text="{Binding UserName}"/>
+
+                                                <materialIcons:MaterialIcon Foreground="#ffe234" Grid.Row="2" Grid.RowSpan="2" Kind="Star" Height="50" Width="50" HorizontalAlignment="Right">
+                                                    <materialIcons:MaterialIcon.Style>
+                                                        <Style TargetType="materialIcons:MaterialIcon">
+                                                            <Setter Property="Visibility" Value="Hidden"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding IsUseful}" Value="True">
+                                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </materialIcons:MaterialIcon.Style>
+                                                </materialIcons:MaterialIcon>
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+                                </Button>
+
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+
+        <Border Margin="20 10 50 10" Padding="15" BorderBrush="Black" BorderThickness="2" CornerRadius="20" Grid.Column="1">
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer.Resources>
+                        <Style TargetType="{x:Type ScrollBar}">
+                            <Setter Property="Width" Value="20"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                                        <Grid>
+                                            <Track x:Name="PART_Track" Grid.Column="0" IsDirectionReversed="True">
+                                                <Track.Thumb>
+                                                    <Thumb Style="{DynamicResource ScrollBarThumb}" />
+                                                </Track.Thumb>
+                                            </Track>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                        <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
+                            <Setter Property="Background" Value="LightGray"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="Width" Value="15"></Setter>
+                            <Setter Property="Margin" Value="0 0 4 0"></Setter>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Thumb}">
+                                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="10"/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ScrollViewer.Resources>
+
+                    <StackPanel>
+                        <Border BorderThickness="2" BorderBrush="Black" CornerRadius="20" Padding="10" Margin="0 0 0 5" HorizontalAlignment="Left" Width="600">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="0 0 10 0" Width="50" Source="{Binding SelectedForum.UserPhoto}"/>
+                                <TextBlock Grid.Row="0" Grid.Column="1" Margin="0" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" Text="{Binding SelectedForum.Title}"/>
+
+                                <Border Grid.Row="1" Grid.Column="1" BorderThickness="1" Background="White" BorderBrush="Gray" CornerRadius="20" Padding="10">
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="Gray" Direction="315" ShadowDepth="5" Opacity="0.5" BlurRadius="10"/>
+                                    </Border.Effect>
+                                    <TextBlock FontSize="16" Text="{Binding SelectedForum.Question}" TextWrapping="Wrap"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <ItemsControl ItemsSource="{Binding SelectedForum.Comments}" Margin="100 0 0 0">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderThickness="2" BorderBrush="Black" CornerRadius="20" Padding="10" Margin="0 0 0 5" HorizontalAlignment="Left" Width="600">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Image Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="0 0 10 0" Width="30" Source="{Binding UserPhoto}"/>
+
+                                            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                                <TextBlock Margin="0" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" Text="{Binding UserName}"/>
+                                                <materialIcons:MaterialIcon Foreground="Blue" Kind="CheckDecagram" Height="15" Width="15" VerticalAlignment="Center" ToolTip="Owner that has an accommodation here.">
+                                                    <materialIcons:MaterialIcon.Style>
+                                                        <Style TargetType="materialIcons:MaterialIcon">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding IsOwner}" Value="True">
+                                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </materialIcons:MaterialIcon.Style>
+                                                </materialIcons:MaterialIcon>
+                                                <materialIcons:MaterialIcon Foreground="#ffe234" Kind="Star" Height="15" Width="15" VerticalAlignment="Center" ToolTip="Guest that had a reservation here.">
+                                                    <materialIcons:MaterialIcon.Style>
+                                                        <Style TargetType="materialIcons:MaterialIcon">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding IsUseful}" Value="True">
+                                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </materialIcons:MaterialIcon.Style>
+                                                </materialIcons:MaterialIcon>
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                                                <StackPanel.Style>
+                                                    <Style TargetType="StackPanel">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsOwner}" Value="False">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+
+                                                <Button Cursor="Hand" Background="Transparent" Command="{Binding Path=DataContext.ReportCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding Id}">
+                                                    <Button.Template>
+                                                        <ControlTemplate TargetType="Button">
+                                                            <ContentPresenter Content="{TemplateBinding Content}"/>
+                                                        </ControlTemplate>
+                                                    </Button.Template>
+
+                                                    <materialIcons:MaterialIcon Foreground="Red" Background="Transparent" Kind="AlertOctagon" Height="30" Width="30" VerticalAlignment="Center" ToolTip="Report a comment as false.">
+                                                        <materialIcons:MaterialIcon.Style>
+                                                            <Style TargetType="materialIcons:MaterialIcon">
+                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding IsUseful}" Value="False">
+                                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </materialIcons:MaterialIcon.Style>
+                                                    </materialIcons:MaterialIcon>
+                                                </Button>
+
+                                                <TextBlock VerticalAlignment="Center" FontSize="14" FontWeight="DemiBold" Foreground="Red" Text="{Binding ReportCount}"/>
+                                            </StackPanel>
+
+                                            <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" BorderThickness="1" Background="White" BorderBrush="Gray" CornerRadius="20" Padding="10">
+                                                <Border.Effect>
+                                                    <DropShadowEffect Color="Gray" Direction="315" ShadowDepth="5" Opacity="0.5" BlurRadius="10"/>
+                                                </Border.Effect>
+                                                <TextBlock FontSize="14" Text="{Binding Comment}" TextWrapping="Wrap"/>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+
+                </ScrollViewer>
+
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Bottom">
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=DataContext.SelectedForum.IsClosed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}" Value="False">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+                    <xctk:WatermarkTextBox Watermark="Write a comment" Margin="0 0 10 0" Width="640" Text="{Binding NewComment}">
+                        <xctk:WatermarkTextBox.BorderBrush>
+                            <SolidColorBrush Color="Black"/>
+                        </xctk:WatermarkTextBox.BorderBrush>
+                        <xctk:WatermarkTextBox.BorderThickness>
+                            <Thickness Left="0" Top="0" Right="0" Bottom="2"/>
+                        </xctk:WatermarkTextBox.BorderThickness>
+                    </xctk:WatermarkTextBox>
+
+                    <Button Style="{StaticResource ButtonStyle}" Content="Send >" Command="{Binding SendCommentCommand}"/>
+                </StackPanel>
+
+            </Grid>
+        </Border>
+
+    </Grid>
+</Page>

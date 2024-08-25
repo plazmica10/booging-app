@@ -1,0 +1,52 @@
+﻿<ResourceDictionary
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
+>
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ColorsStyles.xaml"/>
+        <ResourceDictionary Source="GlobalStyles.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="HelpContent" TargetType="{x:Type StackPanel}">
+        <Setter Property="Margin" Value="5" />
+    </Style>
+
+    <Storyboard x:Key="ShowMenuStoryboard">
+        <DoubleAnimation Storyboard.TargetName="SideMenu" 
+                         Storyboard.TargetProperty="Width" 
+                         To="310" Duration="0:0:0.1"/>
+    </Storyboard>
+    <Storyboard x:Key="HideMenuStoryboard">
+        <DoubleAnimation Storyboard.TargetName="SideMenu" 
+                         Storyboard.TargetProperty="Width" 
+                         To="60" Duration="0:0:0.1"/>
+    </Storyboard>
+
+
+    <Style x:Key="SideMenuBorderStyle" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource GlobalBackgroundNavbar}"/>
+        <Setter Property="Width" Value="60"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+
+    <Style TargetType="Menu">
+        <Setter Property="Foreground" Value="{StaticResource GlobalForeground}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="5"/>
+    </Style>
+
+    <Style TargetType="MenuItem">
+        <Setter Property="Foreground" Value="{StaticResource GlobalForeground}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="FontFamily" Value="Monospace"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+
+</ResourceDictionary>

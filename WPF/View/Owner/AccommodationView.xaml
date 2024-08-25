@@ -1,0 +1,152 @@
+﻿<Page x:Class="BookingApp.WPF.View.Owner.AccommodationView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.WPF.View.Owner"
+      xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+      mc:Ignorable="d" 
+      d:DesignHeight="730" d:DesignWidth="1300"
+      Title="AccommodationView">
+
+    <Page.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Margin" Value="0 0 20 0"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Padding="0,5,0,5" Background="{TemplateBinding Background}" BorderThickness="0" BorderBrush="White" CornerRadius="7">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Border Padding="20 20 20 5" BorderThickness="0" Background="White">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="520"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="0 0 0 30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock FontSize="50" FontWeight="Bold" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Accommodation.Name}"/>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <!--<Button Cursor="Hand" Style="{StaticResource ButtonStyle}" Content="Edit"/>-->
+                    <Button Cursor="Hand" Style="{StaticResource ButtonStyle}" Content="Close" Command="{Binding RemoveCommand}"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Cursor="Hand" Command="{Binding NextPhotoCommand}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <materialIcons:MaterialIcon Background="Transparent" Foreground="Gray" Kind="MenuLeft" Height="70" Width="70" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center"/>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Image Height="300" Width="300" Stretch="Fill" Source="{Binding CurrentPhoto}">
+                        <Image.Clip>
+                            <RectangleGeometry RadiusX="20" RadiusY="20" Rect="0, 0, 300, 300"/>
+                        </Image.Clip>
+                    </Image>
+                    <Button Cursor="Hand" Command="{Binding PrevPhotoCommand}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <materialIcons:MaterialIcon Background="Transparent" Foreground="Gray" Kind="MenuRight" Height="70" Width="70" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center"/>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+
+                <Grid Grid.Column="1" Margin="0 50 0 0" DataContext="{Binding Accommodation}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="190"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" FontSize="16" Text="Location:"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" FontSize="16" Margin="0 0 0 20" Text="{Binding Location}" TextTrimming="CharacterEllipsis" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" FontSize="16" Text="Type:"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" FontSize="16" Margin="0 0 0 20" Text="{Binding Type}"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" FontSize="16" Text="Max number of guests:"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" FontSize="16" Margin="0 0 0 20" Text="{Binding MaxGuests}"/>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" FontSize="16" Text="Min days of reservation:"/>
+                    <TextBlock Grid.Row="3" Grid.Column="1" FontSize="16" Margin="0 0 0 20" Text="{Binding MinDays}"/>
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" FontSize="16" Text="Refund period:"/>
+                    <TextBlock Grid.Row="4" Grid.Column="1" FontSize="16" Margin="0 0 0 20" Text="{Binding RefundPeriod}"/>
+                </Grid>
+
+                <StackPanel Grid.Column="2" Margin="10 50 0 0">
+                    <TextBlock FontSize="16" Margin="0 0 0 10" Text="Description:"/>
+                    <Border BorderThickness="1" Background="White" BorderBrush="Gray" CornerRadius="20" Padding="10">
+                        <Border.Effect>
+                            <DropShadowEffect Color="Gray" Direction="315" ShadowDepth="5" Opacity="0.5" BlurRadius="10"/>
+                        </Border.Effect>
+                        <TextBlock FontSize="16" Text="{Binding Accommodation.Description}" TextWrapping="Wrap"/>
+                    </Border>
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <Button Cursor="Hand" Style="{StaticResource ButtonStyle}" Content="Statistics" Command="{Binding StatisticsCommand}"/>
+                <Button Cursor="Hand" Style="{StaticResource ButtonStyle}" Content="Reviews"    Command="{Binding ReviewsCommand}"/>
+                <Button Cursor="Hand" Style="{StaticResource ButtonStyle}" Content="Renovate"   Command="{Binding RenovateCommand}"/>
+                <Button Cursor="Hand" Style="{StaticResource ButtonStyle}" Content="Print pdf"  Command="{Binding PdfCommand}"/>
+            </StackPanel>
+
+
+            <!-- Successful approve popup -->
+            <Popup Placement="Center" IsOpen="{Binding IsAreYouSureOpen}" StaysOpen="False" AllowsTransparency="True" Grid.Row="0">
+                <Border Padding="15" HorizontalAlignment="Left" BorderThickness="2" BorderBrush="Black" CornerRadius="15" Background="White">
+                    <StackPanel>
+                        <TextBlock Margin="0 0 0 10" FontSize="20" Text="Are you sure you want to close this accommodation?"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Margin="0" Cursor="Hand" HorizontalAlignment="Right" Command="{Binding SureCommand}" Style="{StaticResource ButtonStyle}" Content="Yes"/>
+                            <Button Margin="10 0 0 0" Cursor="Hand" HorizontalAlignment="Right" Command="{Binding NotSureCommand}" Style="{StaticResource ButtonStyle}" Content="No"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Popup>
+
+
+        </Grid>
+
+    </Border>
+
+</Page>

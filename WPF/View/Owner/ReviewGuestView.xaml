@@ -1,0 +1,188 @@
+﻿<Page x:Class="BookingApp.WPF.View.Owner.ReviewGuestView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.WPF.View.Owner"
+      xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+      mc:Ignorable="d" 
+      d:DesignHeight="750" d:DesignWidth="1300"
+      Title="ReviewGuestView">
+
+    <Page.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Margin" Value="0 0 20 0"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Padding="0,5,0,5" Background="{TemplateBinding Background}" BorderThickness="0" BorderBrush="White" CornerRadius="7">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Border Padding="20 20 20 5" BorderThickness="0" Background="White">
+
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="520"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Margin="0 0 0 30" FontSize="50" FontWeight="Bold" Grid.Row="0" VerticalAlignment="Center">
+                <Run Text="Leave a review for"/>
+                <Run Text="{Binding ReviewDto.GuestName}"/>
+            </TextBlock>
+
+            <Grid Grid.Row="1" Grid.RowSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Image Grid.Row="0" Stretch="Fill" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Height="200" Margin="0 0 0 40" Source="{Binding ReviewDto.AccommodationPhoto}">
+                        <Image.Clip>
+                            <RectangleGeometry RadiusX="20" RadiusY="20" Rect="0, 0, 200, 200"/>
+                        </Image.Clip>
+                    </Image>
+
+                    <TextBlock Grid.Row="1" Margin="0 0 0 10" FontSize="22" FontWeight="Bold" Text="{Binding ReviewDto.AccommodationName}"/>
+                    <TextBlock Grid.Row="2" Margin="0 0 0 40" FontSize="16" FontWeight="DemiBold" Text="{Binding ReviewDto.AccommodationLocation}"/>
+
+                    <Grid Grid.Row="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="0 0 0 10" FontSize="16" FontWeight="DemiBold" Text="Check in:"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Margin="0 0 0 10" FontSize="16" FontWeight="DemiBold" Text="{Binding ReviewDto.CheckIn, StringFormat=d}"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="0 0 0 10" FontSize="16" FontWeight="DemiBold" Text="Check out:"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Margin="0 0 0 10" FontSize="16" FontWeight="DemiBold" Text="{Binding ReviewDto.CheckIn, StringFormat=d}"/>
+
+                    </Grid>
+
+                </Grid>
+
+                <Border Grid.Column="1" BorderBrush="Black" BorderThickness="2" CornerRadius="20" Padding="20">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="170*"/>
+                            <ColumnDefinition Width="489*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" FontSize="16" FontWeight="DemiBold" VerticalAlignment="Center">Cleanliness:</Label>
+                        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                            <RadioButton Command="{Binding CleanlinessCommand}" CommandParameter="1">1</RadioButton>
+                            <RadioButton Command="{Binding CleanlinessCommand}" CommandParameter="2">2</RadioButton>
+                            <RadioButton Command="{Binding CleanlinessCommand}" CommandParameter="3">3</RadioButton>
+                            <RadioButton Command="{Binding CleanlinessCommand}" CommandParameter="4">4</RadioButton>
+                            <RadioButton Command="{Binding CleanlinessCommand}" CommandParameter="5">5</RadioButton>
+                        </StackPanel>
+
+                        <Label Grid.Row="1" Grid.Column="0" FontSize="16" FontWeight="DemiBold" VerticalAlignment="Center">Rule following:</Label>
+                        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                            <RadioButton Command="{Binding RuleFollowingCommand}" CommandParameter="1">1</RadioButton>
+                            <RadioButton Command="{Binding RuleFollowingCommand}" CommandParameter="2">2</RadioButton>
+                            <RadioButton Command="{Binding RuleFollowingCommand}" CommandParameter="3">3</RadioButton>
+                            <RadioButton Command="{Binding RuleFollowingCommand}" CommandParameter="4">4</RadioButton>
+                            <RadioButton Command="{Binding RuleFollowingCommand}" CommandParameter="5">5</RadioButton>
+                        </StackPanel>
+
+                        <Label Grid.Row="2" Grid.Column="0" FontSize="16" FontWeight="DemiBold">Comment:</Label>
+                        <TextBox Grid.Row="2" Grid.Column="1" Width="400" Height="100" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Comment}"></TextBox>
+
+                        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Style="{StaticResource ButtonStyle}" Command="{Binding SubmitCommand}">Submit</Button>
+
+                    </Grid>
+                </Border>
+
+            </Grid>
+        </Grid>
+
+    </Border>
+
+    <!--<Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0">Cleanliness</Label>
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+            <RadioButton Command="{Binding CleanlinessCommand}" CommandParameter="1" Content="1">
+                
+    <RadioButton.Template>
+                    <ControlTemplate TargetType="RadioButton">
+                        <materialIcons:MaterialIcon Background="Transparent" Foreground="Yellow" Grid.Row="2" Grid.RowSpan="2" Kind="Star" Height="20" Width="20" HorizontalAlignment="Center"/>
+                    </ControlTemplate>
+                </RadioButton.Template>
+    
+            </RadioButton>
+            <RadioButton Command="{Binding CleanlinessCommand}" CommandParameter="2">2</RadioButton>
+            <RadioButton Command="{Binding CleanlinessCommand}" CommandParameter="3">3</RadioButton>
+            <RadioButton Command="{Binding CleanlinessCommand}" CommandParameter="4">4</RadioButton>
+            <RadioButton Command="{Binding CleanlinessCommand}" CommandParameter="5">5</RadioButton>
+        </StackPanel>
+        
+    <TextBox Grid.Row="0" Grid.Column="1" Width="120" Height="20" HorizontalAlignment="Left" Text="{Binding Cleanliness}"></TextBox>
+    
+        <Label Grid.Row="1">Rule following</Label>
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+            <RadioButton Command="{Binding RuleFollowingCommand}" CommandParameter="1">1</RadioButton>
+            <RadioButton Command="{Binding RuleFollowingCommand}" CommandParameter="2">2</RadioButton>
+            <RadioButton Command="{Binding RuleFollowingCommand}" CommandParameter="3">3</RadioButton>
+            <RadioButton Command="{Binding RuleFollowingCommand}" CommandParameter="4">4</RadioButton>
+            <RadioButton Command="{Binding RuleFollowingCommand}" CommandParameter="5">5</RadioButton>
+        </StackPanel>
+        
+    <TextBox Grid.Row="1" Grid.Column="1" Width="120" Height="20" HorizontalAlignment="Left" Text="{Binding RuleFollowing}"></TextBox>
+    
+        <Label Grid.Row="2">Comment</Label>
+        <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Width="400" Height="100" HorizontalAlignment="Left" Text="{Binding Comment}"></TextBox>
+
+        <Button Grid.Row="3" Grid.Column="1" Width="120" Height="20" HorizontalAlignment="Left" Command="{Binding SubmitCommand}">Submit</Button>
+        <Button Grid.Row="3" Grid.Column="2" Width="120" Height="20" HorizontalAlignment="Left" Command="{Binding CancelCommand}">Cancel</Button>
+    </Grid>-->
+</Page>

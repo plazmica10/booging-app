@@ -1,0 +1,49 @@
+﻿<ResourceDictionary
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
+>
+
+    <!-- CURRENT THEME -->
+
+    <Brush x:Key="GlobalForeground">CornflowerBlue</Brush>
+    <Color x:Key="GlobalForegroundGlow">DeepSkyBlue</Color>
+
+    <Brush x:Key="GlobalForegroundLink">Orange</Brush>
+    <Color x:Key="GlobalForegroundLinkGlow">OrangeRed</Color>
+
+    <Color x:Key="TitleGlowBegin">Orange</Color>
+    <Color x:Key="TitleGlowEnd">OrangeRed</Color>
+
+    <Brush x:Key="GlobalForegroundDisabled">#2da69a</Brush>
+    <Brush x:Key="GlobalBackgroundDisabled">#404040</Brush>
+    <Brush x:Key="GlobalBorderDisabled">#808080</Brush>
+
+
+    <Brush x:Key="GlobalBackground">#0F060F</Brush>
+    <Brush x:Key="GlobalBackgroundDark">#282828</Brush>
+    <Brush x:Key="GlobalBackgroundLevel2">#1f0a1f</Brush>
+    <Brush x:Key="GlobalBackgroundNavbar">#1f0a1f</Brush>
+    <Brush x:Key="GlobalBackgroundLevel3">#191217</Brush>
+
+    <Brush x:Key="GlobalBorderLight">Crimson</Brush>
+    <Brush x:Key="GlobalBorderDark">#6e0519</Brush>
+
+    <Color x:Key="StatusMessageColorBegin">White</Color>
+    <Color x:Key="StatusMessageColorEnd">Red</Color>
+
+
+    <!-- BUTTON, TEXTBOX, ... -->
+    <Brush x:Key="InputBackground">#321e32</Brush> <!--#2e1145 -->
+    <Brush x:Key="InputBorder">#a30c2a</Brush> <!--#2e1145 -->
+
+    <Brush x:Key="InputBackgroundMouseOver">#12022b</Brush>
+    <Brush x:Key="InputBorderMouseOver">#a32c0c</Brush>
+    <Brush x:Key="InputBackgroundMousePressed">#1a043a</Brush>
+    <Brush x:Key="InputBorderMousePressed">#af452c</Brush>
+
+    <Color x:Key="VoucherColorBegin">#000004</Color>
+    <Color x:Key="VoucherColorMid">#02021a</Color>
+    <Color x:Key="VoucherColorEnd">#0b0b43</Color>
+
+</ResourceDictionary>

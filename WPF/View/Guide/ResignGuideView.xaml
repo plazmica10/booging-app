@@ -1,0 +1,51 @@
+﻿<Page x:Class="BookingApp.WPF.View.Guide.ResignGuideView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+        Title="Resign"
+      d:DesignHeight="800" d:DesignWidth="1500">
+    <Page.Resources>
+        <Style  TargetType="Button">
+            <Setter Property="FontSize" Value="50"/>
+            <Setter Property="Foreground" Value="#a89668"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Background" Value="#fffcd1"/>
+            <Setter Property="BorderBrush" Value="#a89668"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Margin" Value="50 50 0 0"/>
+
+        </Style>
+        <Style x:Key="H1" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#1b2d72"/>
+            <Setter Property="FontSize" Value="50"/>
+            <Setter Property="Padding" Value="0 20 0 30"/>
+        </Style>
+        <Style x:Key="H2" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#1b2d72"/>
+            <Setter Property="FontSize" Value="35"/>
+        </Style>
+
+    </Page.Resources>
+   
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Border Height="560" Width="1300" Background="#fbfdfe"  BorderBrush="DarkBlue" BorderThickness="2">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Style="{StaticResource H1}">What happens when you resign?</TextBlock>
+            
+            <TextBlock  Style="{StaticResource H2}">All your pre-scheduled tours will be cancelled, and tourists will be</TextBlock>
+            <TextBlock Style="{StaticResource H2}">awarded one voucher for each tour they booked with you.</TextBlock>
+            <TextBlock Style="{StaticResource H2}">Tourist will be able to use this(these) voucher(s) for any tours in the next 2 years.</TextBlock>
+                <TextBlock Style="{StaticResource H1}">Do you want to resign?</TextBlock>
+           <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="YesButton"  Command="{Binding ResignCommand}">Yes</Button>
+
+           <Button Command="{Binding GiveUpResignCommand}" >No</Button>
+
+            </StackPanel>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</Page>

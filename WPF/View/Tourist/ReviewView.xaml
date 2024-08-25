@@ -1,0 +1,95 @@
+﻿<Page
+x:Class="BookingApp.WPF.View.Tourist.ReviewView"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+xmlns:local="clr-namespace:BookingApp.WPF.View.Tourist"
+xmlns:command="clr-namespace:BookingApp.Command"
+xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
+mc:Ignorable="d" 
+d:DesignHeight="750" d:DesignWidth="430"
+Title="{Binding Title}"
+>
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ReviewViewStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <ScrollViewer Style="{StaticResource PageScrollViewer}">
+        <StackPanel>
+            <StackPanel>
+                <Border Style="{StaticResource ReviewBorder}">
+                    <StackPanel>
+                        <emoji:TextBlock Style="{StaticResource ReviewTitle}" Text="🧠 Rate Guide's knowledge"/>
+                        <StackPanel Style="{StaticResource ReviewStackPanel}">
+                            <RadioButton Style="{StaticResource EmojiRadioButton}" GroupName="G1" Command="{Binding Path=RadioCommand}" CommandParameter="1" Content="☹"/>
+                            <RadioButton Style="{StaticResource EmojiRadioButton}" GroupName="G1" Command="{Binding Path=RadioCommand}" CommandParameter="2" Content="🙁"/>
+                            <RadioButton Style="{StaticResource EmojiRadioButton}" GroupName="G1" Command="{Binding Path=RadioCommand}" CommandParameter="3" Content="😐" IsChecked="True"/>
+                            <RadioButton Style="{StaticResource EmojiRadioButton}" GroupName="G1" Command="{Binding Path=RadioCommand}" CommandParameter="4" Content="🙂"/>
+                            <RadioButton Style="{StaticResource EmojiRadioButton}" GroupName="G1" Command="{Binding Path=RadioCommand}" CommandParameter="5" Content="😄"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource ReviewBorder}">
+                    <StackPanel>
+                        <emoji:TextBlock Style="{StaticResource ReviewTitle}" Text="🗣 Rate Guide's Language Skills"/>
+                        <StackPanel Style="{StaticResource ReviewStackPanel}">
+                            <RadioButton Style="{StaticResource EmojiRadioButton}" GroupName="G2" Command="{Binding Path=RadioCommand}" CommandParameter="6"  Content="☹"/>
+                            <RadioButton Style="{StaticResource EmojiRadioButton}" GroupName="G2" Command="{Binding Path=RadioCommand}" CommandParameter="7"  Content="🙁"/>
+                            <RadioButton Style="{StaticResource EmojiRadioButton}" GroupName="G2" Command="{Binding Path=RadioCommand}" CommandParameter="8"  Content="😐" IsChecked="True"/>
+                            <RadioButton Style="{StaticResource EmojiRadioButton}" GroupName="G2" Command="{Binding Path=RadioCommand}" CommandParameter="9"  Content="🙂"/>
+                            <RadioButton Style="{StaticResource EmojiRadioButton}" GroupName="G2" Command="{Binding Path=RadioCommand}" CommandParameter="10" Content="😄"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource ReviewBorder}">
+                    <StackPanel>
+                        <emoji:TextBlock Style="{StaticResource ReviewTitle}" Text="🤔 How interesting is the tour?"/>
+                        <StackPanel Style="{StaticResource ReviewStackPanel}">
+                            <RadioButton Style="{StaticResource EmojiRadioButton}" GroupName="G3" Command="{Binding Path=RadioCommand}" CommandParameter="11" Content="☹"/>
+                            <RadioButton Style="{StaticResource EmojiRadioButton}" GroupName="G3" Command="{Binding Path=RadioCommand}" CommandParameter="12" Content="🙁"/>
+                            <RadioButton Style="{StaticResource EmojiRadioButton}" GroupName="G3" Command="{Binding Path=RadioCommand}" CommandParameter="13" Content="😐" IsChecked="True"/>
+                            <RadioButton Style="{StaticResource EmojiRadioButton}" GroupName="G3" Command="{Binding Path=RadioCommand}" CommandParameter="14" Content="🙂"/>
+                            <RadioButton Style="{StaticResource EmojiRadioButton}" GroupName="G3" Command="{Binding Path=RadioCommand}" CommandParameter="15" Content="😄"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <StackPanel>
+                <emoji:TextBlock Style="{StaticResource EmojiSubtitle}" Text="💬 Comment:"/>
+                <TextBox Style="{StaticResource InputBigTextbox}" Text="{Binding Path=Comment}"/>
+            </StackPanel>
+
+            <DockPanel Margin="5">
+                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                    <StackPanel>
+                        <Button Style="{StaticResource AddImagesButtonStyle}"
+                                Command="{Binding AddPicturesCommand}"/>
+
+                    </StackPanel>
+                </StackPanel>
+
+                <ScrollViewer Style="{StaticResource AddImagesViewerStyle}"/>
+            </DockPanel>
+
+            <StackPanel Margin="5">
+                <TextBlock Style="{StaticResource StatusMessageStyle}"
+                           Text="{Binding StatusMessage, NotifyOnTargetUpdated=True}"/>
+            </StackPanel>
+
+            <StackPanel Style="{StaticResource CoolButtonStackPanel}">
+                <Button Command="{Binding AddReviewCommand}"
+                        Style="{StaticResource CoolButtonStyle}"
+                        Content="🎭 Add Review"/>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Page>
+ 

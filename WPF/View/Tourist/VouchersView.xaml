@@ -1,0 +1,39 @@
+﻿<Page
+x:Class="BookingApp.WPF.View.Tourist.VouchersView"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+xmlns:local="clr-namespace:BookingApp.WPF.View.Tourist"
+xmlns:command="clr-namespace:BookingApp.Command"
+mc:Ignorable="d" 
+d:DesignHeight="750" d:DesignWidth="430"
+Title="🎫 Vouchers"
+>
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="VouchersViewStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <DockPanel Background="{StaticResource GlobalBackground}">
+
+        <Border Style="{StaticResource BottomBorderStyle}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Button
+                    Command="{Binding ExportCommand}"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Style="{StaticResource CoolButtonStyle}" Content="📄 Export PDF"/>
+            </Grid>
+        </Border>
+
+        <ListView Style="{StaticResource VouchersListView}"/>
+    </DockPanel>
+</Page>

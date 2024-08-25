@@ -1,0 +1,103 @@
+User 
+	+ Id: int
+	+ Username: string
+	+ Password: string
+	+ FirstName: string
+	+ LastName: string
+	+ Email: string
+	+ Phone: string
+	+ Role: UserRole
+	+ IsSuperUser: bool
+	+ BonusPoints: int
+	+ Photo: string
+
+
+Guide
+
+Tourist
+
+Language 
+	+ Id: int
+	+ Id6391: string
+	+ Id6392T: string
+	+ Id6392B: string
+	+ Name: string
+	+ Native: string
+
+
+Location 
+	+ Id: int
+	+ GeoId: string
+	+ Country: string
+	+ SubCountry: string
+	+ City: string
+
+
+TourRequestStatus:enumeration
+	Waiting
+	Rejected
+	Approved
+
+
+TourRequest 
+	+ Id: int
+	+ Name: string
+	+ Description: string
+	+ SpanStart: DateTime
+	+ SpanEnd: DateTime
+	+ PeopleCount: int
+	+ Status: TourRequestStatus
+	
+
+
+TourPersonInfo 
+	+ FirstName: string
+	+ LastName: string
+	+ Email: string
+	+ BirthYear: int
+
+
+TourRequestReservation 
+	+ Id: int
+
+
+TourStatus:enumeration
+	NotStarted
+	Started
+	Finished
+	Canceled
+
+
+Tour 
+	+ Id: int
+	+ Name: string
+	+ Description: string
+	+ MaxTourists: int
+	+ SpaceLeft: int
+	+ PeakPoints: List<string>
+	+ StartsAt: DateTime
+	+ Duration: int
+	+ PictureIds: List<string>
+	+ Status: TourStatus
+	+ CurrentPeakPointIndex: int
+
+
+
+TourMessage 
+	+ Id: int
+	+ Index: int
+	+ Message: string
+	+ ReceivedAt: DateTime
+
+
+Guide--*>User
+Guide{1}--{0..*}Tour
+Tour{1}--{1}Location
+Tour{1}--{1}Language
+Tourist{1}--{0..*}TourRequest
+TourRequest{1}--{0..*}TourRequestReservation
+TourRequest{1}--{1}Location
+TourRequest{1}--{1}Language
+TourMessage{0..*}--{1}Tourist
+Tourist--*>User
+TourRequestReservation--<*>TourPersonInfo

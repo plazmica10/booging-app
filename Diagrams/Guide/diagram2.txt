@@ -1,0 +1,36 @@
+@startuml
+actor Guide
+participant MainViewModel
+participant CreateViewModel
+participant TourStatisticsService
+participant PopupSuccessViewModel
+participant PopupErrorViewModel
+participant TourManagementService
+participant TourRepository
+
+Guide -> MainViewModel ++: opens
+MainViewModel -> CreateViewModel ++: ShowCreateAction()
+CreateViewModel -> CreateViewModel ++: AcceptBestLocationAction()
+CreateViewModel -> TourStatisticsService: GetMostRequestedLocation()
+alt Location available
+    TourStatisticsService --> CreateViewModel: Best location accepted
+    CreateViewModel -> CreateViewModel ++: ShowSuccessPopup()
+    CreateViewModel -> TourManagementService ++: CreateAction()
+    TourManagementService -> TourRepository: SaveAppend(newTour)
+else Location not available
+    TourStatisticsService --> CreateViewModel: Not available
+    CreateViewModel -> CreateViewModel++: ShowErrorPopup()
+end
+
+CreateViewModel -> CreateViewModel ++: AcceptBestLanguageAction()
+CreateViewModel -> TourStatisticsService: GetMostRequestedLanguage()
+alt Language available
+    TourStatisticsService --> CreateViewModel: Best language accepted
+    CreateViewModel -> CreateViewModel ++: ShowSuccessPopup()
+    CreateViewModel -> TourManagementService ++: CreateAction()
+    TourManagementService -> TourRepository: SaveAppend(newTour)
+else Language not available
+    TourStatisticsService --> CreateViewModel: Not available
+    CreateViewModel -> CreateViewModel ++: ShowErrorPopup()
+end
+@enduml

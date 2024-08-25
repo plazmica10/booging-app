@@ -1,0 +1,162 @@
+﻿<Page x:Class="BookingApp.WPF.View.Guide.StartedTourView"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:BookingApp.WPF.View.Guide"
+	xmlns:converters="clr-namespace:BookingApp.WPF.View.Guide.Converters"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1500"
+      Title="StartedTourView">
+    <Page.Resources>
+        <Style x:Key="Shortcut"  TargetType="TextBlock">
+            <Setter Property="Width" Value="26"/>
+            <Setter Property="Background" Value="#edb458"/>
+            <Setter Property="Foreground" Value="#bb4d00"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+
+        </Style>
+        <Style  TargetType="Button">
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="Foreground" Value="#a89668"/>
+            <Setter Property="Background" Value="#fffcd1"/>
+            <Setter Property="BorderBrush" Value="#a89668"/>
+            <Setter Property="Width" Value="200"/>
+        </Style>
+        <Style x:Key="Title" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="Foreground" Value="#1b2d72"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="Background" Value="#b5b3b5" />
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style TargetType="DataGridCell">
+            <Setter Property="BorderThickness" Value="0 0 1 1" />
+            <Setter Property="Background" Value="#fdfcfb"/>
+            <Setter Property="Foreground" Value="#a4948c" />
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#bae9e5"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+    <Page.InputBindings>
+        <KeyBinding Key="F" Modifiers="Control"  Command="{Binding FinishTourCommand}" />
+        <KeyBinding Key="P" Modifiers="Control" Command="{Binding MarkPresentCommand}"/>
+    </Page.InputBindings>
+    <Grid Background="#fbfdfe"  Margin="0 10 0 0">
+        <Border BorderBrush="Silver" BorderThickness="0 1 0 0" >
+            <DockPanel Background="#fbfdfe">
+                <StackPanel DockPanel.Dock="Left" Margin="10" VerticalAlignment="Center">
+                    <local:TourDetailsControl/>
+                    <Button Command="{Binding FinishTourCommand}">Finish Tour</Button>
+                    <TextBlock Width="28" Margin="0 -5 -150 0" Grid.Column="0"  Style="{StaticResource Shortcut}">Ctrl+F</TextBlock>
+
+                </StackPanel>
+                <Border BorderBrush="Silver" BorderThickness="1 0 0 0">
+                    <StackPanel Margin="10 30 10 0">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource Title}">Peak Points:</TextBlock>
+                            <DockPanel Margin="0 0 0 50">
+                                <DataGrid 
+                                    x:Name="PeakPointsDataGrid"
+                                    FontSize="20" Height="200"
+                                          ItemsSource="{Binding PeakPoints}"
+                                          SelectedItem="{Binding PeakPointsSelected}"
+                                          AutoGenerateColumns="False"
+                                          IsReadOnly="True"
+                                          HeadersVisibility="Column"
+                                          SelectionMode="Single" PreviewKeyDown="PeakPointsDataGrid_PreviewKeyDown"
+                                    >
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" >
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTemplateColumn Header="Active" Width="*">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <RadioButton VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" GroupName="PeakPointGroup"/>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTextColumn Header="People Arrived" Binding="{Binding PeopleArrived}" Width="*">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DockPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource Title}">Tourists:</TextBlock>
+                        </StackPanel>
+                        <DockPanel>
+                            <DataGrid 
+                                Name="TouristsDataGrid"
+                                ItemsSource="{Binding TourReservations}"
+                                        SelectedItem="{Binding TourReservationsSelected}"
+                                        IsReadOnly="True" SelectionMode="Single" 
+                                        AutoGenerateColumns="False" HeadersVisibility="Column" 
+                                        HorizontalAlignment="Stretch"
+                                        Height="200"  FontSize="20" KeyDown="TouristsDataGrid_PreviewKeyDown" >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Width="*" Header="First Name" Binding="{Binding FirstName}">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Width="*" Header="Last Name" Binding="{Binding LastName}">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Width="*" Header="Birth Year" Binding="{Binding BirthYear}">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                   
+                                    <DataGridTextColumn Width="*" Header="On Peak Point" Binding="{Binding ArrivedPeakPoint}">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DockPanel>
+                        <Button Command="{Binding MarkPresentCommand}" Margin="0,75,0,0">MARK PRESENT</Button>
+                        <TextBlock Width="28" Margin="0 -5 -150 0" Grid.Column="0"  Style="{StaticResource Shortcut}">Ctrl+P</TextBlock>
+
+                    </StackPanel>
+                </Border>
+            </DockPanel>
+        </Border>
+    </Grid>
+</Page>

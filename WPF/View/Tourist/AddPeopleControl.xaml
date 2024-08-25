@@ -1,0 +1,100 @@
+﻿<UserControl
+x:Class="BookingApp.WPF.View.Tourist.AddPeopleControl"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+xmlns:local="clr-namespace:BookingApp.WPF.View.Tourist"
+xmlns:command="clr-namespace:BookingApp.Command"
+xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
+mc:Ignorable="d" 
+d:DesignHeight="500" d:DesignWidth="430"
+>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="AddPeopleControlStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Grid Style="{StaticResource PageGrid}">
+
+        <Grid.Resources>
+            <command:ValidationErrorsConverter x:Key="ValidationErrorsConverter" />
+            <command:ErrorCountToVisibilityConverter x:Key="ErrorCountToVisibilityConverter" />
+        </Grid.Resources>
+
+        <Border BorderThickness="0 1 0 1" BorderBrush="{StaticResource GlobalBorderDark}">
+            <StackPanel>
+                <StackPanel>
+                    <emoji:TextBlock Style="{StaticResource EmojiTitle}" Text="➕👥 Add people:"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <emoji:TextBlock Style="{StaticResource EmojiSubtitle}" Text="✍️ First Name:"/>
+                    <TextBox
+                        x:Name="txtFirstName"
+                        Style="{StaticResource InputTextbox}"
+                        Text="{Binding Path=FirstName, UpdateSourceTrigger=PropertyChanged}"
+                        ToolTip="{Binding RelativeSource={RelativeSource Mode=Self}, Path=(Validation.Errors), Converter={StaticResource ValidationErrorsConverter}}"/>
+                    <TextBlock
+                        Style="{StaticResource ValidationMessageStyle}"
+                        Text="{Binding ElementName=txtFirstName, Path=(Validation.Errors), Converter={StaticResource ValidationErrorsConverter}, NotifyOnTargetUpdated=True}"
+                        Visibility="{Binding ElementName=txtFirstName, Path=(Validation.Errors).Count, Converter={StaticResource ErrorCountToVisibilityConverter}}"/>
+                </StackPanel>
+                <StackPanel>
+                    <emoji:TextBlock Style="{StaticResource EmojiSubtitle}" Text="✍️ Last Name:"/>
+                    <TextBox
+                        x:Name="txtLastName"
+                        Style="{StaticResource InputTextbox}"
+                        Text="{Binding Path=LastName, UpdateSourceTrigger=PropertyChanged}"
+                        ToolTip="{Binding RelativeSource={RelativeSource Mode=Self}, Path=(Validation.Errors), Converter={StaticResource ValidationErrorsConverter}}"/>
+                    <TextBlock
+                        Style="{StaticResource ValidationMessageStyle}"
+                        Text="{Binding ElementName=txtLastName, Path=(Validation.Errors), Converter={StaticResource ValidationErrorsConverter}, NotifyOnTargetUpdated=True}"
+                        Visibility="{Binding ElementName=txtLastName, Path=(Validation.Errors).Count, Converter={StaticResource ErrorCountToVisibilityConverter}}"/>
+                </StackPanel>
+                <StackPanel>
+                    <emoji:TextBlock Style="{StaticResource EmojiSubtitle}" Text="📧 Email:"/>
+                    <TextBox
+                        x:Name="txtEmail"
+                        Style="{StaticResource InputTextbox}"
+                        Text="{Binding Path=Email, UpdateSourceTrigger=PropertyChanged}"
+                        ToolTip="{Binding RelativeSource={RelativeSource Mode=Self}, Path=(Validation.Errors), Converter={StaticResource ValidationErrorsConverter}}"/>
+                    <TextBlock
+                        Style="{StaticResource ValidationMessageStyle}"
+                        Text="{Binding ElementName=txtEmail, Path=(Validation.Errors), Converter={StaticResource ValidationErrorsConverter}, NotifyOnTargetUpdated=True}"
+                        Visibility="{Binding ElementName=txtEmail, Path=(Validation.Errors).Count, Converter={StaticResource ErrorCountToVisibilityConverter}}"/>
+                </StackPanel>
+                <StackPanel>
+                    <emoji:TextBlock Style="{StaticResource EmojiSubtitle}" Text="📅 Birth Year:"/>
+                    <TextBox
+                        x:Name="txtBirthYear"
+                        Style="{StaticResource InputTextbox}"
+                        Text="{Binding Path=BirthYear, UpdateSourceTrigger=PropertyChanged}"
+                        ToolTip="{Binding RelativeSource={RelativeSource Mode=Self}, Path=(Validation.Errors), Converter={StaticResource ValidationErrorsConverter}}"/>
+                    <TextBlock
+                        Style="{StaticResource ValidationMessageStyle}"
+                        Text="{Binding ElementName=txtBirthYear, Path=(Validation.Errors), Converter={StaticResource ValidationErrorsConverter}, NotifyOnTargetUpdated=True}"
+                        Visibility="{Binding ElementName=txtBirthYear, Path=(Validation.Errors).Count, Converter={StaticResource ErrorCountToVisibilityConverter}}"/>
+                </StackPanel>
+
+                <DockPanel Margin="0 5 5 5">
+                    <StackPanel DockPanel.Dock="Right">
+                        <Button Style="{StaticResource CoolButtonStyle}"
+                                Command="{Binding AddCommand}"
+                                Content="➕👤 Add Person"/>
+                    </StackPanel>
+                    <emoji:TextBlock VerticalAlignment="Bottom"  Style="{StaticResource EmojiSubtitle}" Text="👥 People:"/>
+                </DockPanel>
+
+                <DockPanel MaxHeight="500" MinHeight="100" Margin="5">
+                    <ListView Style="{StaticResource PeopleListView}"
+                              ItemsSource="{Binding Reservations}"/>
+                </DockPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

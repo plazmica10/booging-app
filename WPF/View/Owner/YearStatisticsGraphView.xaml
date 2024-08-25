@@ -1,0 +1,226 @@
+﻿<Page x:Class="BookingApp.WPF.View.Owner.YearStatisticsGraphView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.WPF.View.Owner"
+      xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      mc:Ignorable="d" 
+      d:DesignHeight="750" d:DesignWidth="1300"
+      Title="YearStatisticsGraphView">
+
+    <Page.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Margin" Value="0 0 20 0"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Padding="0,5,0,5" Background="{TemplateBinding Background}" BorderThickness="0" BorderBrush="White" CornerRadius="7">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="LinkButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Foreground" Value="Blue"/>
+        </Style>
+        
+        <!-- Selector styles -->
+        <Style x:Key="Reservations" TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="0 0 20 0"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="ButtonBorder" BorderThickness="2" BorderBrush="Black" CornerRadius="15" Padding="10 5 10 5">
+                            <TextBlock Text="{TemplateBinding Content}"></TextBlock>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="LightGray"></Setter>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Reservations}" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="Gray"></Setter>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Cancellations" TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="0 0 20 0"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="ButtonBorder" BorderThickness="2" BorderBrush="Black" CornerRadius="15" Padding="10 5 10 5">
+                            <TextBlock Text="{TemplateBinding Content}"></TextBlock>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="LightGray"></Setter>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Cancellations}" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="Gray"></Setter>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Reschedulings" TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="0 0 20 0"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="ButtonBorder" BorderThickness="2" BorderBrush="Black" CornerRadius="15" Padding="10 5 10 5">
+                            <TextBlock Text="{TemplateBinding Content}"></TextBlock>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="LightGray"></Setter>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Reschedulings}" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="Gray"></Setter>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Renovations" TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="0 0 20 0"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="ButtonBorder" BorderThickness="2" BorderBrush="Black" CornerRadius="15" Padding="10 5 10 5">
+                            <TextBlock Text="{TemplateBinding Content}"></TextBlock>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="LightGray"></Setter>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Renovations}" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="Gray"></Setter>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Border Padding="20 20 20 5" BorderThickness="0" Background="White">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="520"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="0 0 0 30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock FontSize="50" FontWeight="Bold" Grid.Column="0" VerticalAlignment="Center" Text="{Binding AccommodationName}"/>
+
+            </Grid>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0 0 50 0">
+                    <Button Cursor="Hand" Style="{StaticResource Reservations}" Command="{Binding ReservationsCommand}" Content="Reservations"></Button>
+                    <Button Cursor="Hand" Style="{StaticResource Cancellations}" Command="{Binding CancellationsCommand}" Content="Cancellations"></Button>
+                    <Button Cursor="Hand" Style="{StaticResource Reschedulings}" Command="{Binding ReschedulingsCommand}" Content="Reschedulings"></Button>
+                    <Button Cursor="Hand" Style="{StaticResource Renovations}" Command="{Binding RenovationsCommand}" Content="Renovations"></Button>
+                </StackPanel>
+
+                <Button Cursor="Hand" Command="{Binding YearTableCommand}">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <materialIcons:MaterialIcon Background="Transparent" Foreground="Black" Kind="Grid" Height="40" Width="40" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button Cursor="Hand" Command="{Binding YearGraphCommand}" Margin="20 0 30 0">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <materialIcons:MaterialIcon Background="Transparent" Foreground="Blue" Kind="ChartBar" Height="40" Width="40" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 15 0 0">
+                        <Button Cursor="Hand" Command="{Binding NextPhotoCommand}">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <materialIcons:MaterialIcon Background="Transparent" Foreground="Gray" Kind="MenuLeft" Height="70" Width="70" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center"/>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Image Height="300" Width="300" Stretch="Fill" Source="{Binding CurrentPhoto}">
+                            <Image.Clip>
+                                <RectangleGeometry RadiusX="20" RadiusY="20" Rect="0, 0, 300, 300"/>
+                            </Image.Clip>
+                        </Image>
+                        <Button Cursor="Hand" Command="{Binding PrevPhotoCommand}">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <materialIcons:MaterialIcon Background="Transparent" Foreground="Gray" Kind="MenuRight" Height="70" Width="70" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center"/>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel Margin="0 15 0 0" Orientation="Horizontal">
+                        <TextBlock FontSize="20" FontWeight="DemiBold" Text="Best year: "/>
+                        <TextBlock Margin="10 0 0 0" FontSize="20" Text="{Binding BestYear}"/>
+                    </StackPanel>
+
+                    <Button Style="{StaticResource ButtonStyle}" Margin="0 115 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Back" Command="{Binding BackCommand}"/>
+                </StackPanel>
+
+                <Border Grid.Column="1" Margin="15" Padding="7" BorderBrush="Black" BorderThickness="2" CornerRadius="20">
+                    <lvc:CartesianChart Series="{Binding BarChartSeries}" Margin="0 5 0 5">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Year" Labels="{Binding YearLabels}"/>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Location" LabelFormatter="{Binding YFormatter}" MinValue="0"/>
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+                </Border>
+
+            </Grid>
+
+        </Grid>
+
+    </Border>
+</Page>

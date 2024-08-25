@@ -1,0 +1,54 @@
+@startuml
+
+|Tourist|
+start
+:Enter complex tour request name;
+:Create tour part;
+:Add people to tour part;
+:Create complex tour request;
+
+|System|
+:Check if tour request is created;
+
+if (Tour request created?) then (yes)
+
+	|Tourist|
+	:View all complex tour requests;
+	
+	|System|
+	:Load complex tour requests;
+
+    |System|
+    :Check if system needs to update the requests;
+
+    if (Update requests?) then (yes)
+        :Update requests statuses;
+    endif
+
+	|Tourist|
+    :View all complex tour requests;
+	
+	|System|
+	:Load Complex tour requests;
+
+	|Guide|
+	:View all complex tour requests and their parts;
+
+    |Guide|
+    :Accept part of complex tour;
+
+    |System|
+    :Update tour request status;
+
+    |System|
+    :Create tour;
+	
+
+else (no)
+	|System|
+    :Show error message;
+    stop
+endif
+
+stop
+@enduml

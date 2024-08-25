@@ -1,0 +1,116 @@
+﻿<Window x:Class="BookingApp.WPF.View.Guest.ReviewView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.WPF.View.Guest"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:menuNavigation="clr-namespace:MenuNavigation"
+        xmlns:wpf="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+        mc:Ignorable="d"
+        Title="Review" Height="480" Width="800"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource BackgroundColor}"
+        >
+    <Grid Background="{DynamicResource BackgroundColor}" Margin="10,0,10,01">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label  Foreground="{DynamicResource TextColor}" Grid.Row="0" Grid.ColumnSpan="2" FontWeight="DemiBold" FontSize="20" Content="{menuNavigation:Loc GiveRating }"></Label>
+
+        <Label  Foreground="{DynamicResource TextColor}" Grid.Row="1" Content="{menuNavigation:Loc HostText}"></Label>
+        <StackPanel x:Name="OwnerRating" Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+            <RadioButton  Foreground="{DynamicResource TextColor}"  GroupName="OwnerRating" Command="{Binding OwnerRatingCommand}" CommandParameter="1" Content="1"/>
+            <RadioButton  Foreground="{DynamicResource TextColor}" GroupName="OwnerRating" Command="{Binding OwnerRatingCommand}" CommandParameter="2" Content="2"/>
+            <RadioButton  Foreground="{DynamicResource TextColor}" GroupName="OwnerRating" Command="{Binding OwnerRatingCommand}" CommandParameter="3" Content="3"/>
+            <RadioButton  Foreground="{DynamicResource TextColor}" GroupName="OwnerRating" Command="{Binding OwnerRatingCommand}" CommandParameter="4" Content="4"/>
+            <RadioButton  Foreground="{DynamicResource TextColor}" GroupName="OwnerRating" Command="{Binding OwnerRatingCommand}" CommandParameter="5" Content="5"/>
+        </StackPanel>
+        <TextBlock Grid.Row="1" Grid.Column="2" Margin="5,0,0,0" Text="{Binding ValidationErrors[OwnerRating]}"
+                   Foreground="Red" FontSize="13"/>
+        <Label  Foreground="{DynamicResource TextColor}" Grid.Row="2" Content="{menuNavigation:Loc Cleanliness}"></Label>
+        <StackPanel x:Name="Cleanliness" Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+            <RadioButton  Foreground="{DynamicResource TextColor}" GroupName="Cleanliness" Command="{Binding PropertyRatingCommand}" CommandParameter="1" Content="1"/>
+            <RadioButton  Foreground="{DynamicResource TextColor}" GroupName="Cleanliness" Command="{Binding PropertyRatingCommand}" CommandParameter="2" Content ="2"/>
+            <RadioButton  Foreground="{DynamicResource TextColor}" GroupName="Cleanliness" Command="{Binding PropertyRatingCommand}" CommandParameter="3" Content="3"/>
+            <RadioButton  Foreground="{DynamicResource TextColor}" GroupName="Cleanliness" Command="{Binding PropertyRatingCommand}" CommandParameter="4" Content="4"/>
+            <RadioButton  Foreground="{DynamicResource TextColor}" GroupName="Cleanliness" Command="{Binding PropertyRatingCommand}" CommandParameter="5" Content="5"/>
+        </StackPanel>
+        <TextBlock Grid.Row="2" Grid.Column="2"  Text="{Binding ValidationErrors[Cleanliness]}"
+                   Foreground="Red" Margin="5,0,0,0" FontSize="13"/>
+        <Label  Foreground="{DynamicResource TextColor}" Grid.Row="3" Content="{menuNavigation:Loc Comment}"></Label>
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="2">
+            <TextBox BorderBrush="{DynamicResource BorderColor}" Background="Transparent" Foreground="{DynamicResource TextColor}" Grid.Row="4" Height="80"  Grid.ColumnSpan="2" Text="{Binding Review.Comment}" ></TextBox>
+            <TextBlock Text="{Binding ValidationErrors[Comment]}"
+                       Foreground="Red" FontSize="13"/>
+        </StackPanel>
+
+        <Button Cursor="Hand" Grid.Column="3" Grid.Row="4"  Width="150" Height="27" VerticalAlignment="Bottom" Style="{DynamicResource GuestButtonStyle}" Command="{Binding AddPhotoCommand}">
+            <TextBlock Text="{menuNavigation:Loc AddImage}" Foreground="Black"></TextBlock>
+        </Button>
+        <StackPanel Grid.Row="0" Grid.RowSpan="5" Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Button Cursor="Hand" Command="{Binding NextPhotoCommand}">
+                <Button.Template>
+                    <ControlTemplate>
+                        <wpf:MaterialIcon Background="Transparent" Foreground="Gray" Kind="MenuLeft" Height="25" Width="25" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center"/>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Image Height="150" Width="180" Stretch="Fill" Source="{Binding CurrentPhoto}">
+                <Image.Clip>
+                    <RectangleGeometry RadiusX="20" RadiusY="20" Rect="0, 0, 300, 300"/>
+                </Image.Clip>
+            </Image>
+            <Button Cursor="Hand" Command="{Binding PrevPhotoCommand}">
+                <Button.Template>
+                    <ControlTemplate>
+                        <wpf:MaterialIcon Background="Transparent" Foreground="Gray" Kind="MenuRight" Height="25" Width="25" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center"/>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+
+        <Label  Foreground="{DynamicResource TextColor}"  Grid.Row="6" Content="{menuNavigation:Loc RenovationR}"></Label>
+        <TextBox BorderBrush="{DynamicResource BorderColor}" Background="Transparent" Foreground="{DynamicResource TextColor}" Grid.Row="7" Grid.ColumnSpan="2" Height="100" Text="{Binding RenovationRecommendation}" />
+        <xctk:WatermarkComboBox Grid.Row="8" 
+                                ItemsSource="{Binding UrgencyLevels}" 
+                                SelectedItem="{Binding SelectedUrgencyLevel}" 
+                                Watermark="{menuNavigation:Loc Urgency}"
+                                Margin="0,10,0,0"
+                                WatermarkBackground="LightGray"
+                                Height="25" VerticalAlignment="Top">
+            <xctk:WatermarkComboBox.WatermarkTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" Foreground="Black"></TextBlock>
+                </DataTemplate>
+            </xctk:WatermarkComboBox.WatermarkTemplate>
+            <xctk:WatermarkComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" Foreground="Black"/>
+                </DataTemplate>
+            </xctk:WatermarkComboBox.ItemTemplate>
+        </xctk:WatermarkComboBox>
+
+        <Button Cursor="Hand"  Margin="0,10,0,0" Grid.Row="8"  Grid.Column="3" Command="{Binding SubmitCommand}" Width="150" 
+                Style="{DynamicResource GuestButtonStyle}" Height="25" HorizontalAlignment="Center" Grid.RowSpan="3" VerticalAlignment="Top">
+            <TextBlock Text="{menuNavigation:Loc SubmitBtn}" Foreground="Black"></TextBlock>
+        </Button>
+
+    </Grid>
+</Window>

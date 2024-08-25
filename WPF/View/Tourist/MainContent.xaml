@@ -1,0 +1,107 @@
+﻿<Page 
+x:Class="BookingApp.WPF.View.Tourist.MainContent"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+xmlns:local="clr-namespace:BookingApp.WPF.View.Tourist"
+xmlns:command="clr-namespace:BookingApp.Command"
+xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
+mc:Ignorable="d" 
+d:DesignWidth="430"
+d:DesignHeight="750"
+Title=""
+>
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="MainContentStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Style="{StaticResource PageGrid}">
+        <DockPanel>
+            <Border Style="{StaticResource MainTopBorder}" DockPanel.Dock="Top">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="10*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0"  Style="{StaticResource BackButtonStyle}"/>
+                    <emoji:TextBlock Grid.Column="1" 
+                                     Style="{StaticResource AppTitleTextBoxStyle}"
+                                     Text="{Binding AppTitle, NotifyOnTargetUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Button Grid.Column="2" Command="{Binding SearchCommand}"  Style="{StaticResource TopButtonStyle}">
+                        <Button.Content>
+                            <TextBlock TextAlignment="Center">
+                             <emoji:TextBlock Style="{StaticResource TopButtonEmojiStyle}" Text="🔍"/>
+                            </TextBlock>
+                        </Button.Content>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <Border Style="{StaticResource MainBottomBorder}" DockPanel.Dock="Bottom">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Command="{Binding ShowToursCommand}" Grid.Row="0" Grid.Column="0" Style="{StaticResource MainBottomButton}">
+                        <Button.Content>
+                            <TextBlock TextAlignment="Center">
+					<emoji:TextBlock Style="{StaticResource MainBottomEmoji}" Text="🚂"/>
+					<LineBreak/>
+					<TextBlock Style="{StaticResource MainBottomText}" Text="Tours"/>
+                         </TextBlock>
+                        </Button.Content>
+                    </Button>
+                    <Button Command="{Binding ShowMyToursCommand}" Grid.Row="0" Grid.Column="1" Style="{StaticResource MainBottomButton}">
+                        <Button.Content>
+                            <TextBlock TextAlignment="Center">
+					<emoji:TextBlock Style="{StaticResource MainBottomEmoji}" Text="👤"/>
+					<LineBreak/>
+					<TextBlock Style="{StaticResource MainBottomText}" Text="My Tours"/>
+                         </TextBlock>
+                        </Button.Content>
+                    </Button>
+                    <Button Command="{Binding ShowInboxCommand}" Grid.Row="0" Grid.Column="2" Style="{StaticResource MainBottomButton}">
+                        <Button.Content>
+                            <TextBlock TextAlignment="Center">
+					<emoji:TextBlock Style="{StaticResource MainBottomEmoji}" Text="📥"/>
+					<LineBreak/>
+					<TextBlock Style="{StaticResource MainBottomText}" Text="Inbox"/>
+                         </TextBlock>
+                        </Button.Content>
+                    </Button>
+                    <Button Command="{Binding ShowRequestsCommand}" Grid.Row="0" Grid.Column="3" Style="{StaticResource MainBottomButton}">
+                        <Button.Content>
+                            <TextBlock TextAlignment="Center">
+					<emoji:TextBlock Style="{StaticResource MainBottomEmoji}" Text="🙏"/>
+					<LineBreak/>
+					<TextBlock Style="{StaticResource MainBottomText}" Text="Requests"/>
+                         </TextBlock>
+                        </Button.Content>
+                    </Button>
+                    <Button Command="{Binding ShowHelpCommand}" Grid.Row="0" Grid.Column="4" Style="{StaticResource MainBottomButton}">
+                        <Button.Content>
+                            <TextBlock TextAlignment="Center">
+					<emoji:TextBlock Style="{StaticResource MainBottomEmoji}" Text="ℹ️"/>
+					<LineBreak/>
+					<TextBlock Style="{StaticResource MainBottomText}" Text="Help"/>
+                         </TextBlock>
+                        </Button.Content>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+        </DockPanel>
+    </Grid>
+</Page>

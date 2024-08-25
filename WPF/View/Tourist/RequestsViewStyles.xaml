@@ -1,0 +1,301 @@
+﻿<ResourceDictionary
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
+>
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ColorsStyles.xaml"/>
+        <ResourceDictionary Source="GlobalStyles.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style TargetType="TabControl">
+        <Setter Property="Foreground" Value="{StaticResource GlobalForeground}"/>
+        <Setter Property="Background" Value="{StaticResource GlobalBackground}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource GlobalBorderDark}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+    </Style>
+
+    <Style TargetType="TabItem">
+        <Setter Property="Foreground" Value="{StaticResource GlobalForeground}"/>
+        <Setter Property="Background" Value="{StaticResource GlobalBackground}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="HeaderTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <emoji:TextBlock Text="{Binding}" FontSize="20"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Grid>
+                        <Border x:Name="Border" Background="{TemplateBinding Background}">
+                            <WrapPanel>
+                                <ContentPresenter ContentSource="Header" Margin="10,2"/>
+                            </WrapPanel>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource GlobalForegroundLink}" />
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource GlobalBackgroundLevel2}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="TitleBorder" TargetType="Border">
+        <Setter Property="BorderThickness" Value="0 0 0 2"/>
+        <Setter Property="BorderBrush" Value="{StaticResource GlobalBorderDark}"/>
+    </Style>
+
+    <Style x:Key="RequestsListViewHead" TargetType="TextBlock" BasedOn="{StaticResource Text}">
+        <Setter Property="FontSize" Value="20"/>
+    </Style>
+
+    <Style x:Key="RequestsListViewBody" TargetType="TextBlock" BasedOn="{StaticResource Text}">
+        <Setter Property="FontSize" Value="14"/>
+    </Style>
+
+    <Style x:Key="RequestsListViewStyle" TargetType="ListView">
+        <Setter Property="Foreground" Value="{StaticResource GlobalForeground}"/>
+        <Setter Property="Background" Value="{StaticResource GlobalBackground}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource GlobalBorderLight}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource GlobalBorderLight}"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                    <Setter Property="Margin" Value="2"/>
+                    <Setter Property="Padding" Value="0" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Border Padding="{TemplateBinding Padding}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="10">
+                                    <ContentPresenter/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <StackPanel>
+                        <Border Padding="5" Style="{StaticResource TitleBorder}">
+                            <Grid>
+                                <WrapPanel Margin="2">
+                                    <emoji:TextBlock Style="{StaticResource RequestsListViewHead}" Text="🚂"/>
+                                    <TextBlock       Style="{StaticResource RequestsListViewHead}" Text="{Binding Name}"/>
+                                </WrapPanel>
+
+                                <emoji:TextBlock Style="{StaticResource RequestsListViewHead}" HorizontalAlignment="Right" Margin="0 1 2 0" Text="{Binding StatusText}"/>
+                            </Grid>
+                        </Border>
+
+                        <StackPanel Margin="5">
+                            <WrapPanel>
+                                <emoji:TextBlock Style="{StaticResource RequestsListViewBody}" Text="🌎 Location: "/>
+                                <TextBlock Style="{StaticResource RequestsListViewBody}" Text="{Binding Location}"/>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <emoji:TextBlock Style="{StaticResource RequestsListViewBody}" Text="🗣 Language: "/>
+                                <TextBlock Style="{StaticResource RequestsListViewBody}" Text="{Binding Language}"/>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <emoji:TextBlock Style="{StaticResource RequestsListViewBody}" Text="📅 "/>
+                                <TextBlock Style="{StaticResource RequestsListViewBody}" Text="{Binding SpanStart}"/>
+                                <TextBlock Style="{StaticResource RequestsListViewBody}" Text=" &#x2192; "/>
+                                <TextBlock Style="{StaticResource RequestsListViewBody}" Text="{Binding SpanEnd}"/>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <emoji:TextBlock Style="{StaticResource RequestsListViewBody}" Text="👥 People: "/>
+                                <TextBlock Style="{StaticResource RequestsListViewBody}" Text="{Binding PeopleCount}"/>
+                            </WrapPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="RequestsComplexPartListViewHead" TargetType="TextBlock" BasedOn="{StaticResource Text}">
+        <Setter Property="FontSize" Value="16"/>
+    </Style>
+
+    <Style x:Key="RequestsComplexPartListViewBody" TargetType="TextBlock" BasedOn="{StaticResource Text}">
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
+
+    <Style x:Key="RequestsComplexPartListViewStyle" TargetType="ListView">
+        <Setter Property="Foreground" Value="{StaticResource GlobalForeground}"/>
+        <Setter Property="Background" Value="{StaticResource GlobalBackground}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource GlobalBorderLight}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="FontSize" Value="8"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+        <Setter Property="IsHitTestVisible" Value="False"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListView">
+                    <Border CornerRadius="10"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}">
+                        <ItemsPresenter/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource GlobalBorderDark}"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                    <Setter Property="Margin" Value="2"/>
+                    <Setter Property="Padding" Value="0" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Border Padding="{TemplateBinding Padding}"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="10">
+                                    <ContentPresenter/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <StackPanel>
+                        <Border Padding="1" Style="{StaticResource TitleBorder}">
+                            <Grid>
+                                <WrapPanel>
+                                    <emoji:TextBlock Style="{StaticResource RequestsComplexPartListViewHead}" Text="🧱"/>
+                                    <TextBlock       Style="{StaticResource RequestsComplexPartListViewHead}" Text="{Binding Name}"/>
+                                </WrapPanel>
+                                <emoji:TextBlock  Style="{StaticResource RequestsComplexPartListViewHead}" HorizontalAlignment="Right" Margin="0 1 2 0" Text="{Binding StatusText}"/>
+                            </Grid>
+                        </Border>
+
+                        <StackPanel Margin="5">
+                            <WrapPanel>
+                                <emoji:TextBlock Style="{StaticResource RequestsComplexPartListViewBody}" Text="🌎 Location: "/>
+                                <TextBlock       Style="{StaticResource RequestsComplexPartListViewBody}" Text="{Binding Location}"/>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <emoji:TextBlock Style="{StaticResource RequestsComplexPartListViewBody}" Text="🗣 Language: "/>
+                                <TextBlock       Style="{StaticResource RequestsComplexPartListViewBody}" Text="{Binding Language}"/>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <emoji:TextBlock Style="{StaticResource RequestsComplexPartListViewBody}" Text="📅 "/>
+                                <TextBlock       Style="{StaticResource RequestsComplexPartListViewBody}" Text="{Binding SpanStart}"/>
+                                <TextBlock       Style="{StaticResource RequestsComplexPartListViewBody}" Text=" &#x2192; "/>
+                                <TextBlock       Style="{StaticResource RequestsComplexPartListViewBody}" Text="{Binding SpanEnd}"/>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <emoji:TextBlock Style="{StaticResource RequestsComplexPartListViewBody}" Text="👥 People: "/>
+                                <TextBlock       Style="{StaticResource RequestsComplexPartListViewBody}" Text="{Binding PeopleCount}"/>
+                            </WrapPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="RequestsComplexListViewHead" TargetType="TextBlock" BasedOn="{StaticResource Text}">
+        <Setter Property="FontSize" Value="20"/>
+    </Style>
+
+    <Style x:Key="RequestsComplexListViewStyle" TargetType="ListView">
+        <Setter Property="Foreground" Value="{StaticResource GlobalForeground}"/>
+        <Setter Property="Background" Value="{StaticResource GlobalBackground}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource GlobalBorderLight}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource GlobalBorderLight}"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                    <Setter Property="Margin" Value="2"/>
+                    <Setter Property="Padding" Value="0" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Border Padding="{TemplateBinding Padding}"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="10">
+                                    <ContentPresenter/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <StackPanel>
+                        <Border Padding="5" Style="{StaticResource TitleBorder}">
+                            <Grid>
+                                <WrapPanel>
+                                    <emoji:TextBlock Style="{StaticResource RequestsComplexListViewHead}" Text="✈️"/>
+                                    <TextBlock       Style="{StaticResource RequestsComplexListViewHead}" Text="{Binding Name}"/>
+                                </WrapPanel>
+                                <emoji:TextBlock Style="{StaticResource RequestsComplexListViewHead}" HorizontalAlignment="Right" Margin="0 1 2 0" Text="{Binding StatusText}"/>
+                            </Grid>
+                        </Border>
+
+                        <StackPanel>
+                            <ListView Style="{StaticResource RequestsComplexPartListViewStyle}" ItemsSource="{Binding Parts}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

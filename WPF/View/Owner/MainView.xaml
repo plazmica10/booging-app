@@ -1,0 +1,110 @@
+﻿<Window x:Class="BookingApp.WPF.View.Owner.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.WPF.View.Owner"
+        xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        FontSize="16"
+        Title="Booging" Height="800" Width="1300" ResizeMode="CanMinimize">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type MenuItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type MenuItem}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter Content="{TemplateBinding Header}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Transparent" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="MenuButton" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <TextBlock x:Name="textBlock" Text="{TemplateBinding Content}"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="textBlock" Property="TextDecorations" Value="Underline"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <DockPanel>
+            <Grid Background="Transparent" DockPanel.Dock="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Cursor="Hand" Style="{StaticResource MenuButton}" Margin="0 5 20 5" Padding="5 0 5 0" Command="{Binding HomeCommand}">Home</Button>
+                    <Button Cursor="Hand" Style="{StaticResource MenuButton}" x:Name="MenuButton" Margin="20 5 20 5" Padding="5 0 5 0" Command="{Binding DropdownCommand}">Accommodations</Button>
+                    <Button Cursor="Hand" Style="{StaticResource MenuButton}" Margin="20 5 0 5" Padding="5 0 5 0" Command="{Binding ForumsCommand}">Forums</Button>
+                </StackPanel>
+
+
+                <Popup AllowsTransparency="True" Grid.Column="1" IsOpen="{Binding ShowDropdown}" VerticalOffset="90" HorizontalOffset="0" Placement="Center" PlacementTarget="{Binding ElementName=MenuButton}" StaysOpen="False">
+                    <Border CornerRadius="10" BorderThickness="2" BorderBrush="Black" Padding="5 5 5 5" Background="White">
+                        <StackPanel>
+                            <Button Cursor="Hand" Style="{StaticResource MenuButton}" Command="{Binding AccommodationsCommand}">Accommodations</Button>
+                            <!--<Button Cursor="Hand" Style="{StaticResource MenuButton}">Reservations</Button>-->
+                            <Button Cursor="Hand" Style="{StaticResource MenuButton}" Command="{Binding ReviewsCommand}">Reviews</Button>
+                            <Button Cursor="Hand" Style="{StaticResource MenuButton}" Command="{Binding RenovationsCommand}">Renovations</Button>
+                            <Button Cursor="Hand" Style="{StaticResource MenuButton}" Command="{Binding RecommendationsCommand}">Recommendations</Button>
+                            <Button Cursor="Hand" Style="{StaticResource MenuButton}" Command="{Binding NewForumsCommand}">New forums</Button>
+                        </StackPanel>
+                    </Border>
+                </Popup>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Cursor="Hand" Margin="0 5 10 5" Background="Transparent" Command="{Binding InboxCommand}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <ContentPresenter Content="{TemplateBinding Content}"/>
+                            </ControlTemplate>
+                        </Button.Template>
+
+                        <materialIcons:MaterialIcon Background="Transparent" Grid.Row="2" Grid.RowSpan="2" Kind="EmailOutline" Height="42" Width="42" HorizontalAlignment="Right"/>
+                    </Button>
+                    <Button Cursor="Hand" Margin="10 5 20 5" Background="Transparent" Command="{Binding ProfileCommand}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <ContentPresenter Content="{TemplateBinding Content}"/>
+                            </ControlTemplate>
+                        </Button.Template>
+
+                        <materialIcons:MaterialIcon Background="Transparent" Grid.Row="2" Grid.RowSpan="2" Kind="AccountCircleOutline" Height="60" Width="60" HorizontalAlignment="Right"/>
+                    </Button>
+                </StackPanel>
+
+            </Grid>
+
+            <Frame
+                x:Name="MainFrame"
+                DockPanel.Dock="Bottom"
+                NavigationUIVisibility="Hidden"
+            />
+        </DockPanel>
+    </Grid>
+</Window>

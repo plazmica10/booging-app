@@ -1,0 +1,49 @@
+﻿@startuml
+actor Owner
+participant MainViewModel
+participant AccommodationsViewModel
+participant AccommodationViewModel
+participant AddRenovationViewModel
+participant AccommodationReservationService
+participant AccommodationReservationRepository
+participant AccommodationService
+participant AccommodationRepository
+participant AccommodationRenovationService
+participant AccommodationRenovationRepository
+
+Owner -> MainViewModel ++: Opens Main Page
+MainViewModel -> AccommodationsViewModel ++: AccommodationsAction()
+AccommodationsViewModel -> AccommodationViewModel ++: OpenAccommodation()
+AccommodationViewModel -> AddRenovationViewModel ++: Renovate()
+
+alt StartDate < EndDate
+    alt StartDate > DateTime.Today && EndDate > DateTime.Today
+        AddRenovationViewModel -> AccommodationReservationService ++: GetAvailableDates(Accommodation.Id, StartDate, EndDate, ExpectedDuration)
+        AccommodationReservationService -> AccommodationReservationRepository ++: GetAvailableDates(accommodationId, startDate.Date, endDate.Date, stayLength)
+        AccommodationReservationRepository --> AccommodationReservationService --: List<Tuple<DateTime, DateTime>>
+        AccommodationReservationService --> AddRenovationViewModel --: SearchedDates = List<Tuple<DateTime, DateTime>>
+    end
+end
+
+alt SelectedDate != null
+    AddRenovationViewModel -> AccommodationService ++: GetById(Accommodation.Id)
+    AccommodationService -> AccommodationRepository ++: GetById(Accommodation.Id)
+    AccommodationRepository --> AccommodationService --: List<Accommodation>
+    AccommodationService --> AddRenovationViewModel --: accommodation = List<Accommodation>
+    alt accommodation != null
+        AddRenovationViewModel -> AccommodationReservationService ++: Save(reservation)
+        AccommodationReservationService -> AccommodationReservationRepository ++: Save(reservation)
+        AccommodationReservationRepository --> AccommodationReservationService --: AccommodationReservation
+        AccommodationReservationService --> AddRenovationViewModel --: AccommodationReservation
+
+        AddRenovationViewModel -> AccommodationRenovationService ++: SaveRenovation(renovation)
+        AccommodationRenovationService -> AccommodationRenovationRepository ++: Save(renovation)
+        AccommodationRenovationRepository --> AccommodationRenovationService
+        AccommodationRenovationService --> AddRenovationViewModel
+    end
+end
+
+AddRenovationViewModel --> AccommodationViewModel
+
+
+@enduml

@@ -1,0 +1,55 @@
+﻿<Page x:Class="BookingApp.WPF.View.Owner.test"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.WPF.View.Owner"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="test">
+
+    <Page.Resources>
+        <Storyboard x:Key="StatusMessageAnimation">
+            <ColorAnimation
+                Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                To="White" Duration="0:0:0.5"/>
+            <ColorAnimation
+                Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                To="Red" Duration="0:0:0.5"
+                BeginTime="0:0:0.5"/>
+        </Storyboard>
+
+
+        <Style x:Key="ValidationMessageStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+            <Setter Property="Margin" Value="5 1 0 1"/>
+
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                    <BeginStoryboard Storyboard="{StaticResource StatusMessageAnimation}"/>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <local:AutoCompleteLocation
+                x:Name="selectedLocation"
+                Margin="5"
+                Width="200"
+                Height="40"
+                SelectedLocation="{Binding SelectedLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            />
+            <TextBlock Text="{Binding SelectedLocation}"/>
+        </StackPanel>
+        <Button Grid.Row="1" Height="50" Width="100" Command="{Binding Click}">Kita</Button>
+    </Grid>
+</Page>

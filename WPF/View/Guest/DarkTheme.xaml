@@ -1,0 +1,237 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:menuNavigation="clr-namespace:MenuNavigation"
+                    xmlns:wpf="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+                    xmlns:utilities="clr-namespace:BookingApp.Utilities">
+
+    <SolidColorBrush x:Key="BackgroundColor" Color="#2d2d2e"/>
+    <SolidColorBrush x:Key="SideBar" Color="#202021"/>
+    <SolidColorBrush x:Key="TextColor" Color="White"/>
+    <SolidColorBrush x:Key="BorderColor" Color="DarkGray"/>
+
+    <Style x:Key="TextBoxInError" TargetType="{x:Type TextBox}">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="true">
+                <Setter Property="BorderBrush" Value="Red" />
+                <Setter Property="BorderThickness" Value="2" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type DatePicker}">
+        <Style.Resources>
+            <Style TargetType="DatePickerTextBox">
+                <Setter Property="Background" Value="{DynamicResource BackgroundColor}"/>
+                <Setter Property="Foreground" Value="Black"/>
+            </Style>
+        </Style.Resources>
+        <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
+    </Style>
+
+    <Style TargetType="Border">
+        <Setter Property="BorderBrush" Value="White"/>
+    </Style>
+
+
+
+    <Style x:Key="GuestMenuButton" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,0,0,0">
+                        <ContentPresenter ContentSource="Content"/>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="GuestUnderlineOnHover" TargetType="{x:Type TextBlock}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=IsMouseOver}" Value="True">
+                <Setter Property="TextDecorations" Value="Underline"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+
+    <Style x:Key="GuestScroll" TargetType="{x:Type ScrollBar}">
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ScrollBar}">
+                    <Grid>
+                        <Track x:Name="PART_Track" Grid.Column="0" IsDirectionReversed="True">
+                            <Track.Thumb>
+                                <Thumb Style="{DynamicResource ScrollBarThumb}" />
+                            </Track.Thumb>
+                        </Track>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="GuestScrollBarThumb" TargetType="{x:Type Thumb}">
+        <Setter Property="Background" Value="DarkGray"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Width" Value="15"></Setter>
+        <Setter Property="Margin" Value="0 0 4 0"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="10"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsDragging" Value="True">
+                <Setter Property="Background" Value="LightSlateGray"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="GuestButtonStyle" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border  Padding="5" x:Name="border" Background="{TemplateBinding Background}" BorderThickness="0" BorderBrush="White" CornerRadius="5">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <DataTemplate x:Key="GuestReservationsTemplate">
+        <Border BorderBrush="Gray" BorderThickness="0" CornerRadius="5">
+            <Grid Height="100">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                Grid.Row="0"
+                Grid.Column="1"
+                FontWeight="Bold"
+                FontSize="15"
+                Margin="0,10,0,0"
+                Text="{Binding AccommodationName}"
+                Foreground="{DynamicResource TextColor}" >
+                </TextBlock>
+                <Image
+                Grid.Row="0"
+                Grid.RowSpan="3"
+                Grid.Column="0"
+                Height="80"
+                Stretch="UniformToFill"
+                Width="150"
+                Margin="10"
+                VerticalAlignment="Center"
+                Source="{Binding Path=Images[0]}" />
+
+                <TextBlock
+                Grid.Row="1"
+                Grid.Column="1"  Foreground="{DynamicResource TextColor}" >
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0}, {1}">
+                            <Binding Path="City" />
+                            <Binding Path="Country" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+
+                <TextBlock
+                Grid.Row="2"
+                Grid.Column="1"  Foreground="{DynamicResource TextColor}" >
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0:d} - {1:d}">
+                            <Binding Path="CheckIn" />
+                            <Binding Path="CheckOut" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <StackPanel Orientation="Horizontal" Grid.Row="2"  Grid.Column="1"  HorizontalAlignment="Right">
+                    <TextBlock Foreground="Gray" HorizontalAlignment="Right" Text="{menuNavigation:Loc NotReviewed}"  Margin="0,0,5,0"  VerticalAlignment="Center">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding HasGuestReviewed}" Value="False">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <wpf:MaterialIcon Foreground="Red"  VerticalAlignment="Center" HorizontalContentAlignment="Right" Kind="Close" Height="20" Width="20" HorizontalAlignment="Right">
+                        <wpf:MaterialIcon.Style>
+                            <Style TargetType="wpf:MaterialIcon">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding HasGuestReviewed}" Value="False">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </wpf:MaterialIcon.Style>
+                    </wpf:MaterialIcon>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="2"  Grid.Column="1"  HorizontalAlignment="Right">
+                    <TextBlock Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Right" Text="{menuNavigation:Loc Reviewed}" Margin="0,0,5,0">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding HasGuestReviewed}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <wpf:MaterialIcon Foreground="Green" VerticalAlignment="Center" Kind="Check" Height="20" Width="20" HorizontalAlignment="Right">
+                        <wpf:MaterialIcon.Style>
+                            <Style TargetType="wpf:MaterialIcon">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding HasGuestReviewed}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </wpf:MaterialIcon.Style>
+                    </wpf:MaterialIcon>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </DataTemplate>
+
+    <utilities:BoolConverter x:Key="InvBooleanToVisibilityConverter"/>
+
+    <DataTemplate x:Key="GuestForumsTemplate">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock   Foreground="{DynamicResource TextColor}" Text="{Binding Title}" ToolTip="{Binding Forum.Title}" TextTrimming="CharacterEllipsis"  FontSize="15"  Margin="0,0,10,0" Padding="5,0,0,0"/>
+            <TextBlock   Foreground="{DynamicResource TextColor}" Text="{Binding City}"   Margin="5,0,0,0"  FontSize="15" HorizontalAlignment="Right" />
+            <TextBlock   Foreground="{DynamicResource TextColor}" FontSize="15">,</TextBlock>
+            <TextBlock   Foreground="{DynamicResource TextColor}" Text="{Binding Country}" FontSize="15" HorizontalAlignment="Right" />
+        </StackPanel>
+    </DataTemplate>
+
+</ResourceDictionary>

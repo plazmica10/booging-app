@@ -1,0 +1,110 @@
+﻿<UserControl x:Class="BookingApp.WPF.View.Guide.TourDetailsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookingApp.WPF.View.Guide"
+            
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800"
+            >
+    <UserControl.Resources>
+        <Style x:Key="Label" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#1b2d72"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="0 0 10 0"/>
+        </Style>
+
+        <Style x:Key="Value" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="black"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+
+        <Style x:Key="Title" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#1b2d72"/>
+            <Setter Property="FontSize" Value="40"/>
+            <Setter Property="FontStyle" Value="Oblique"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="10 0 0 0"/>
+        </Style>
+
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Path x:Name="PathTriangle" Height="20" Fill="#6171af" Data="M10,0 L30,10 L10,20 Z" Stroke="#6171af"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Beige"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <StackPanel Height="600" Width="700">
+        <StackPanel>
+            <TextBlock Style="{StaticResource Title}" Text="{Binding TourName}"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Margin="10"  Orientation="Horizontal">
+                <Border BorderThickness="2" BorderBrush="Black">
+                    <DockPanel Height="280" Width="280">
+                        <Image  Source="{Binding PictureLocation}"/>
+                    </DockPanel>
+                </Border>
+                <DockPanel>
+
+                    <Button x:Name="btnNextPicture" VerticalAlignment="Center" Style="{StaticResource ButtonStyle}" Command="{Binding NextPictureCommand}" Content="▶️" HorizontalAlignment="Center"/>
+                </DockPanel>
+            </StackPanel>
+
+            <Grid Margin="20 0 0 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+
+                <WrapPanel Grid.Row="0" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource Label}">🗺️ Location: </TextBlock>
+                    <TextBlock Style="{StaticResource Value}" Text="{Binding Location}"></TextBlock>
+                </WrapPanel>
+                <WrapPanel Grid.Row="1" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource Label}">🗣️ Language:</TextBlock>
+                    <TextBlock Style="{StaticResource Value}" Text="{Binding Language}"></TextBlock>
+                </WrapPanel>
+                <WrapPanel Grid.Row="2" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource Label}">👥 Max Tourists:</TextBlock>
+                    <TextBlock Style="{StaticResource Value}" Text="{Binding MaxTourists}"></TextBlock>
+                </WrapPanel>
+                <WrapPanel Grid.Row="3" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource Label}">⌚ Starts at:</TextBlock>
+                    <TextBlock Style="{StaticResource Value}" Text="{Binding StartsAt}"></TextBlock>
+                </WrapPanel>
+                <WrapPanel Grid.Row="4" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource Label}">⏳ Duration:</TextBlock>
+                    <TextBlock Style="{StaticResource Value}" Text="{Binding Duration}"></TextBlock>
+                </WrapPanel>
+            </Grid>
+            
+        </StackPanel>
+        <StackPanel>
+            <StackPanel>
+                <TextBlock Margin="10 0 0 0" Style="{StaticResource Label}">✏️ Description:</TextBlock>
+                <ScrollViewer Margin="10" Height="150" VerticalScrollBarVisibility="Auto">
+                    <TextBlock FontSize="20" Text="{Binding Description}" TextWrapping="Wrap"/>
+                </ScrollViewer>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

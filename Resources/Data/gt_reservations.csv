@@ -1,0 +1,11 @@
+Id|TourId|TouristId|Arrived|ArrivedPeakPoint|ArrivedAt|Person|IsCounted
+1|1|4|True|Kej|2024-06-04 18:34:49|pera;peric;pera@gmail.com;2002|True
+2|2|4|True|Kej|2024-06-04 18:34:49|pera;peric;pera@gmail.com;2002|True
+3|3|4|True|Kalemegdan|2024-06-07 09:25:51|pera;peric;pera@gmail.com;2002|True
+4|4|4|True|Kej|2024-06-04 18:34:49|pera;peric;pera@gmail.com;2002|True
+5|5|4|True|Kej|2024-06-04 18:34:49|pera;peric;pera@gmail.com;2002|True
+6|6|4|True|tour start|2024-06-07 09:17:57|pera;peric;pera@gmail.com;2002|True
+7|7|4|True|Kej|2024-06-04 18:34:49|pera;peric;pera@gmail.com;2002|True
+8|8|4|True|Kej|2024-06-04 18:34:49|pera;peric;pera@gmail.com;2002|True
+9|9|4|True|Kej|2024-06-04 18:34:49|pera;peric;pera@gmail.com;2002|True
+10|10|4|False||0001-01-01 00:00:00|pera;peric;pera@gmail.com;2002|False

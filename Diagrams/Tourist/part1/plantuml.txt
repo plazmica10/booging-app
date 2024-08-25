@@ -1,0 +1,34 @@
+@startuml
+actor Guide
+participant MainViewModel
+participant CreateViewModel
+participant TourManagementService
+participant TourRepository
+participant TourRequestRepository
+Guide -> MainViewModel ++: Opens Main Page
+activate MainViewModel
+MainViewModel -> CreateViewModel ++: ShowCreateAction()
+CreateViewModel -> CreateViewModel ++: CreateAction()
+CreateViewModel -> TourManagementService ++:CreateTour(request)
+TourManagementService -> LocationRepository ++: GetById(locationId)
+alt location != null
+    LocationRepository -> TourManagementService: Location (valid)
+else location == null
+    TourManagementService -> CreateViewModel ++: return InvalidLocationId
+end
+TourManagementService -> LanguageRepository ++: GetById(languageId)
+alt language != null
+    LanguageRepository -> TourManagementService ++: Language (valid)
+else Language == null
+    TourManagementService -> CreateViewModel++: return InvalidLanguageId
+end
+loop foreach dateTime in DatesAndTimes
+    TourManagementService -> TourRepository ++: SaveAppend(newTour)
+end
+TourManagementService -> TourRequestRepository ++: GetAll()
+loop foreach request in TourRequests
+    alt Request not Approved && Request Matches Language or Location && Tourist Not Notified Yet
+        TourManagementService -> TourMessageService ++: SendMessageToTourist(touristId, newTour)
+    end
+end
+@enduml

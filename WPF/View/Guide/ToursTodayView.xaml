@@ -1,0 +1,50 @@
+﻿<Page x:Class="BookingApp.WPF.View.Guide.ToursTodayView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.WPF.View.Guide"
+      xmlns:converters="clr-namespace:BookingApp.WPF.View.Guide.Converters"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1300"
+      Title="ToursTodayView"    >
+
+
+    <Page.Resources>
+        <converters:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter"/>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#fffcd1"/>
+            <Setter Property="BorderBrush" Value="#a89668"/>
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="Foreground" Value="#a89668"/>
+        </Style>
+        <Style x:Key="Shortcut"  TargetType="TextBlock">
+            <Setter Property="Width" Value="33"/>
+            <Setter Property="Background" Value="#edb458"/>
+            <Setter Property="Foreground" Value="#bb4d00"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+
+        </Style>
+    </Page.Resources>
+<Page.InputBindings>
+        <KeyBinding Key="M" Modifiers="Control"  Command="{Binding StartTourCommand}" />
+</Page.InputBindings>
+    <Grid Background="#fbfdfe"  IsEnabled="{Binding IsPageEnabled}">
+        <DockPanel Background="#fbfdfe">
+            <StackPanel Visibility="{Binding ToursSelected ,Converter={StaticResource ObjectToVisibilityConverter}}" DockPanel.Dock="Right" Background="#fbfdfe"  >
+                <Border Height="670" BorderBrush="DarkGray" BorderThickness="1" Margin="10">
+                    <Grid Background="#fdfefe">
+                        <StackPanel>
+                            <local:TourDetailsControl></local:TourDetailsControl>
+                            <Button x:Name="btnStartTour"  Margin="0,20,0,10" Width="200" Command="{Binding StartTourCommand}"  Style="{StaticResource ButtonStyle}" Content="Start Tour" VerticalAlignment="Top"/>
+                            <TextBlock Margin="140,-20,0,10"   Style="{StaticResource Shortcut}">Ctrl+M</TextBlock>
+
+</StackPanel>
+                    </Grid>
+                </Border>
+            </StackPanel>
+            <local:ToursDataGridControl ></local:ToursDataGridControl>
+        </DockPanel>
+    </Grid>
+</Page>

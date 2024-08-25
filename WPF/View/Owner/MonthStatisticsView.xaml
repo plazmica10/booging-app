@@ -1,0 +1,124 @@
+﻿<Page x:Class="BookingApp.WPF.View.Owner.MonthStatisticsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.WPF.View.Owner"
+      xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+      mc:Ignorable="d" 
+      d:DesignHeight="750" d:DesignWidth="1300"
+      Title="MonthStatistics">
+
+    <Page.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Margin" Value="0 0 20 0"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Padding="0,5,0,5" Background="{TemplateBinding Background}" BorderThickness="0" BorderBrush="White" CornerRadius="7">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Border Padding="20 20 20 5" BorderThickness="0" Background="White">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="520"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="0 0 0 30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock FontSize="50" FontWeight="Bold" Grid.Column="0" VerticalAlignment="Center" Text="{Binding AccommodationName}"/>
+
+            </Grid>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <Button Cursor="Hand" Command="{Binding MonthTableCommand}">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <materialIcons:MaterialIcon Background="Transparent" Foreground="Blue" Kind="Grid" Height="40" Width="40" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button Cursor="Hand" Command="{Binding MonthGraphCommand}" Margin="20 0 30 0">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <materialIcons:MaterialIcon Background="Transparent" Foreground="Black" Kind="ChartBar" Height="40" Width="40" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 15 0 0">
+                        <Button Cursor="Hand" Command="{Binding NextPhotoCommand}">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <materialIcons:MaterialIcon Background="Transparent" Foreground="Gray" Kind="MenuLeft" Height="70" Width="70" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center"/>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Image Height="300" Width="300" Stretch="Fill" Source="{Binding CurrentPhoto}">
+                            <Image.Clip>
+                                <RectangleGeometry RadiusX="20" RadiusY="20" Rect="0, 0, 300, 300"/>
+                            </Image.Clip>
+                        </Image>
+                        <Button Cursor="Hand" Command="{Binding PrevPhotoCommand}">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <materialIcons:MaterialIcon Background="Transparent" Foreground="Gray" Kind="MenuRight" Height="70" Width="70" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center"/>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel Margin="0 15 0 0" Orientation="Horizontal">
+                        <TextBlock FontSize="20" FontWeight="DemiBold" Text="Best month: "/>
+                        <TextBlock Margin="10 0 0 0" FontSize="20" Text="{Binding BestMonth}"/>
+                    </StackPanel>
+
+                    <Button Style="{StaticResource ButtonStyle}" Margin="0 115 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Back" Command="{Binding BackCommand}"/>
+                </StackPanel>
+
+                <Border Grid.Column="1" Margin="15" Padding="7" BorderBrush="Black" BorderThickness="2" CornerRadius="20">
+                    <DataGrid ItemsSource="{Binding MonthStatistics}" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Month" Binding="{Binding MonthName}" Width="80"/>
+                            <DataGridTextColumn Header="Reservations" Binding="{Binding Reservations}" Width="*"/>
+                            <DataGridTextColumn Header="Cancellations" Binding="{Binding Cancellations}" Width="*"/>
+                            <DataGridTextColumn Header="Rescheduling count" Binding="{Binding ReschedulingCount}" Width="*"/>
+                            <DataGridTextColumn Header="Renovation count" Binding="{Binding RenovationCount}" Width="*"/>
+                            <DataGridTextColumn Header="Occupation" Binding="{Binding Occupation, StringFormat={}{0}%}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
+
+            </Grid>
+
+        </Grid>
+    </Border>
+</Page>

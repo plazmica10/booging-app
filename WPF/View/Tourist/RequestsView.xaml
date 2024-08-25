@@ -1,0 +1,71 @@
+﻿<Page
+x:Class="BookingApp.WPF.View.Tourist.RequestsView"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+xmlns:local="clr-namespace:BookingApp.WPF.View.Tourist"
+xmlns:command="clr-namespace:BookingApp.Command"
+xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
+mc:Ignorable="d" 
+d:DesignHeight="750" d:DesignWidth="430"
+Title="🙏 My Tour Requests"
+>
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="RequestsViewStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+
+    <Grid Style="{StaticResource PageGrid}">
+        <TabControl SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
+            <TabItem Header="🚂 Normal Tours">
+                <DockPanel>
+                    <Border Style="{StaticResource BottomBorderStyle}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button
+                                Command="{Binding ShowStatisticsCommand}"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Style="{StaticResource CoolButtonStyle}" Content="📊 Statistics"/>
+                            <Button
+                                Command="{Binding CreateRequestNormalCommand}"
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                Style="{StaticResource CoolButtonStyle}" Content="➕ Create"/>
+                        </Grid>
+                    </Border>
+
+                    <ListView ItemsSource="{Binding Requests}" Style="{StaticResource RequestsListViewStyle}"/>
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="✈️ Complex Tours">
+                <DockPanel>
+                    <Border Style="{StaticResource BottomBorderStyle}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button
+                                Command="{Binding CreateRequestComplexCommand}"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Style="{StaticResource CoolButtonStyle}" Content="➕ Create"/>
+                        </Grid>
+                    </Border>
+
+                    <ListView ItemsSource="{Binding RequestsComplex}" Style="{StaticResource RequestsComplexListViewStyle}"/>
+                </DockPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>

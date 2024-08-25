@@ -1,0 +1,30 @@
+﻿<Page
+x:Class="BookingApp.WPF.View.Tourist.HelpPages.HelpVouchers"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+xmlns:local="clr-namespace:BookingApp.WPF.View.Tourist.HelpPages"
+mc:Ignorable="d" 
+d:DesignWidth="430"
+d:DesignHeight="750"
+Title="HelpVouchers"
+>
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="HelpPagesStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Style="{StaticResource PageGrid}">
+        <Border Style="{StaticResource HelpBorder}">
+            <StackPanel>
+                <TextBlock Style="{StaticResource HelpHeader}" Text="🎫 Vouchers"/>
+                <TextBlock Style="{StaticResource HelpBody}"
+                           Text="Go to Inbox > Vouchers > Export PDF to export vouchers."/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>

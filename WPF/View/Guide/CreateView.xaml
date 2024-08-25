@@ -1,0 +1,334 @@
+﻿<Page x:Class="BookingApp.WPF.View.Guide.CreateView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.WPF.View.Guide"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      mc:Ignorable="d" 
+      Title="Create Tour"
+      d:DesignHeight="800" d:DesignWidth="1500"
+      KeyDown="Page_KeyDown"
+      >
+    <Page.InputBindings>
+        <KeyBinding Key="F1"  Command="{Binding IncreaseMaxTouristsCommand}" CommandParameter="1"/>
+        <KeyBinding Key="F2"  Command="{Binding DecreaseMaxTouristsCommand}" CommandParameter="1"/>
+        <KeyBinding Key="F3"  Command="{Binding IncreaseDurationCommand}" CommandParameter="1"/>
+        <KeyBinding Key="F4"  Command="{Binding DecreaseDurationCommand}" CommandParameter="1"/>
+        <KeyBinding Key="L" Modifiers="Alt" Command="{Binding AcceptBestLocationCommand}"/>
+        <KeyBinding Key="L" Modifiers="Control" Command="{Binding AcceptBestLanguageCommand}"/>
+        <KeyBinding Key="F5" Command="{Binding CreateCommand}"/>
+
+    </Page.InputBindings>
+    <Page.Resources>
+        <Style x:Key="Shortcut"  TargetType="TextBlock">
+            <Setter Property="Width" Value="15"/>
+            <Setter Property="Background" Value="#edb458"/>
+            <Setter Property="Foreground" Value="#bb4d00"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+
+        </Style>
+        <Style x:Key="Title" TargetType="Label">
+            <Setter Property="FontSize" Value="50"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#1b2d72"/>
+        </Style>
+
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#fffcd1"/>
+            <Setter Property="BorderBrush" Value="#a89668"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="#a89668"/>
+            <Setter Property="Content" Value="➕"/>
+            <Setter Property="Width" Value="30"/>
+        </Style>
+
+
+        <Style x:Key="CreateButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#fffcd1"/>
+            <Setter Property="BorderBrush" Value="#a89668"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="Foreground" Value="#a89668"/>
+            <Setter Property="Content" Value="Create Tour"/>
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0 50 25 0" />
+        </Style>
+
+        <Style x:Key="SubTitleInput" TargetType="Label">
+            <Setter Property="Margin" Value="5,0,15,0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#1b2d72"/>
+        </Style>
+
+        <Style x:Key="SubTitle" TargetType="Label">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#1b2d72"/>
+        </Style>
+
+
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+
+        <Style TargetType="DatePicker">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="0 0 30 0"/>
+            <Setter Property="Width" Value="150"/>
+        </Style>
+        <Style x:Key="StarButton" TargetType="Button">
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Background" Value="#fffcd1"/>
+            <Setter Property="BorderBrush" Value="#a89668"/>
+            <Setter Property="FontSize" Value="40" />
+            <Setter Property="Foreground" Value="#a89668"/>
+            <Setter Property="Content" Value="⭐️"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="5 0 0 0"/>
+            <Setter Property="Padding" Value="-2 -15 0 0"/>
+
+
+        </Style>
+    </Page.Resources>
+    <Grid Background="#fbfdfe" IsEnabled="{Binding IsPageEnabled}">
+
+        <StackPanel>
+            <StackPanel>
+                <Label Style="{StaticResource Title}">👥Create Tour</Label>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="40,20,0,0">
+                <StackPanel Margin="30" Width="450">
+
+                    <Grid Margin="0,0,0,50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource SubTitleInput}" Content="Name:"/>
+                        <TextBox  Name="NameTextBox" Margin="0 5 0 5" Grid.Row="0" Grid.Column="1" Text="{Binding TourName}" KeyDown="NameTextBox_KeyDown" />
+
+                        <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource SubTitleInput}" Content="Location:"/>
+                        <local:AutoCompleteLocationControl 
+                            IsEnabled="{Binding IsLocationListBoxEnabled}"
+                            x:Name="selectedLocation"
+                            IsControlEnabled="{Binding SelectedLocationEnabled}"
+                            
+                            SelectedLocation="{Binding SelectedLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="0 5 0 5" Grid.Row="1"
+                             />
+
+                        <Button IsEnabled="{Binding IsButtonEnabled}" 
+                                Command="{Binding AcceptBestLocationCommand}" Grid.Column="2" Grid.Row="1" Style="{StaticResource StarButton}" ></Button>
+                        <TextBlock Margin="0,0,-800,-50" Width="35"   Style="{StaticResource Shortcut}">alt+L</TextBlock>
+
+                    </Grid>
+
+                    <StackPanel Orientation="Horizontal" >
+
+                    </StackPanel>
+                    <StackPanel>
+                        <Label  Style="{StaticResource SubTitle}" Content="Description:" Margin="3,0,0,0"/>
+
+                        <TextBox  x:Name="DescriptionTextBox"  KeyDown="DescriptionTextBox_KeyDown" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="9,0,0,30" Height="190" TextWrapping="Wrap" Text="{Binding Path=Description}" ></TextBox>
+
+                    </StackPanel>
+                    <StackPanel>
+                        <Grid  Margin="0 0 0 50">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="AUTO"/>
+                            </Grid.ColumnDefinitions>
+
+
+
+                            <Label Grid.Column="0" Style="{StaticResource SubTitleInput}" Content="Language:" />
+
+                            <Grid Grid.Column="1">
+                                <local:AutoCompleteLanguageControl
+                                    IsEnabled="{Binding IsLanguageListBoxEnabled}"
+                                    x:Name="selectedLanguage"
+                                    IsControlEnabled="{Binding SelectedLanguageEnabled}"
+                                    SelectedLanguage="{Binding SelectedLanguage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="0 5 0 5"
+                                    />
+                            </Grid>
+
+                            <Button IsEnabled="{Binding IsButtonEnabled}"
+                                    Command="{Binding AcceptBestLanguageCommand}"
+                                    Grid.Column="2"
+                                    Style="{StaticResource StarButton}"/>
+                            <TextBlock Margin="0,0,-800,-10" Width="42"   Style="{StaticResource Shortcut}">Ctrl+L</TextBlock>
+
+                        </Grid>
+
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Label Style="{StaticResource SubTitleInput}" Grid.Row="0" Grid.Column="0" Content="Max Tourists:"/>
+                            <StackPanel Grid.Row="0" Grid.Column="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox TabIndex="4" Name="NumTouristsTextBox" KeyDown="NumTouristsTextBox_KeyDown" Width="80" Grid.Column="0" Text="{Binding Path=NumTourists}" TextAlignment="Center" Margin="0,5,0,0"/>
+                                    <StackPanel Grid.Column="1" Margin="0 5 0 0" >
+                                        <RepeatButton Background="#fffcd1" BorderBrush="#a89668" Foreground="#a89668" Content="&#x25B2;" FontSize="8" Width="26" Height="15" Command="{Binding IncreaseMaxTouristsCommand}" CommandParameter="1"/>
+                                        <RepeatButton Background="#fffcd1" BorderBrush="#a89668" Foreground="#a89668" Content="&#x25BC;" FontSize="8" Width="26" Height="15" Command="{Binding DecreaseMaxTouristsCommand}" CommandParameter="1"/>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+
+                            <Label Style="{StaticResource SubTitleInput}" Grid.Row="1" Grid.Column="0" Content="Duration (h):"/>
+
+                            <StackPanel Grid.Row="1" Grid.Column="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox  Name="DurationTextBox" KeyDown="DurationTextBox_KeyDown" Margin="0 5 0 0" Width="80" Grid.Column="0" Text="{Binding Path=Duration}"  TextAlignment="Center"/>
+                                    <StackPanel Grid.Column="1"  Margin="0 5 0 0">
+                                        <RepeatButton Background="#fffcd1" BorderBrush="#a89668" Foreground="#a89668" Content="&#x25B2;" FontSize="8" Width="26" Height="15" Command="{Binding IncreaseDurationCommand}" CommandParameter="1"/>
+                                        <RepeatButton Background="#fffcd1" BorderBrush="#a89668" Foreground="#a89668" Content="&#x25BC;" FontSize="8" Width="26" Height="15" Command="{Binding DecreaseDurationCommand}" CommandParameter="1"/>
+                                    </StackPanel>
+                                </Grid>
+                              
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+
+                </StackPanel>
+
+                <StackPanel Margin="45,30,30,30" Width="400">
+
+                    <StackPanel Orientation="Vertical">
+                        <Label Style="{StaticResource SubTitle}" Content="Dates and Times :"/>
+                        <StackPanel Margin="0,0,0,20">
+                            <StackPanel Margin="5,5,0,5" Orientation="Horizontal">
+                                <DatePicker TabIndex="6" Name="DatePicker" KeyDown="DatePicker_KeyDown" SelectedDate="{Binding SelectedDate, Mode=TwoWay}"   />
+                                <TextBox TabIndex="7" x:Name="HourTextBox" Text="{Binding HourText, Mode=TwoWay}" Width="50"  PreviewTextInput="HourTextBox_PreviewTextInput" TextChanged="HourTextBox_TextChanged" />
+                                <TextBox TabIndex="8" x:Name="MinuteTextBox" Text="{Binding MinuteText, Mode=TwoWay}" Width="50" PreviewTextInput="MinuteTextBox_PreviewTextInput" TextChanged="MinuteTextBox_TextChanged" />
+                                <TextBox TabIndex="9" x:Name="SecondTextBox" Text="{Binding SecondText, Mode=TwoWay}" Width="50" PreviewTextInput="SecondTextBox_PreviewTextInput" TextChanged="SecondTextBox_TextChanged" />
+
+                                <Label Content="🕗" FontSize="15"  Height="30" />
+                                <Button TabIndex="10" Name="AddDateButton" Command="{Binding AddDateCommand}" Style="{StaticResource ButtonStyle}">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="25">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </StackPanel>
+                            <ListView ItemsSource="{Binding DatesAndTimes}"  FontSize="20" Height="150" Width="395" HorizontalAlignment="Left" Margin="5,0,0,0">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="📅" FontSize="14"/>
+                                            <TextBlock Text="{Binding}" FontSize="20" TextAlignment="Center" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical">
+                        <Label Style="{StaticResource SubTitle}" Content="Key points :"/>
+                        <StackPanel >
+                            <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                                <TextBox TabIndex="11" Name="PeakPointTextBox" KeyDown="PeakPointTextBox_KeyDown" Margin="0 0 0 5" Width="365" Text="{Binding PeakPoint}"/>
+                                <Button TabIndex="12" Name="AddPeakPointButton" Command="{Binding AddPeakPointCommand}" Style="{StaticResource ButtonStyle}">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="25">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </StackPanel>
+                            <ListView FontSize="20" ItemsSource="{Binding PeakPoints}" Height="150" HorizontalAlignment="Left" Width="395" Margin="5,0,0,0">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="📍" FontSize="14"  />
+                                            <TextBlock Text="{Binding}" FontSize="20"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Margin="40,30,30,30" Width="408">
+                    <StackPanel>
+                        <StackPanel>
+                            <Label Style="{StaticResource SubTitle}" Content="Images :"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Vertical" Width="400">
+                                <ListView ItemsSource="{Binding PictureLocations}" FontSize="20" Height="365" Width="370" HorizontalAlignment="Left" SelectedItem="{Binding SelectedPicture}">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{Binding}" Width="150" Height="150" Stretch="UniformToFill" />
+                                                <Button Background="Transparent" BorderBrush="Transparent" Foreground="Red" Command="{Binding DataContext.RemovePictureCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                                                     CommandParameter="{Binding}"
+                                                     Content="X"
+                                                     Width="30"
+                                                     Height="30"
+                                                     VerticalAlignment="Top"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+
+
+                    <Button TabIndex="13" Name="AddPicturesButton" Height="35" Width="35" Command="{Binding AddPicturesCommand}" Style="{StaticResource ButtonStyle}" Content="➕" HorizontalAlignment="Right" Margin="20,-222,0,0">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="25">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button TabIndex="14" Command="{Binding CreateCommand}" Style="{StaticResource CreateButtonStyle}" />
+                    <TextBlock Margin="120,-5,0,0"   Style="{StaticResource Shortcut}">F5</TextBlock>
+
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

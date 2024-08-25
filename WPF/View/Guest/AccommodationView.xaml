@@ -1,0 +1,250 @@
+﻿<Page x:Class="BookingApp.WPF.View.Guest.AccommodationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookingApp.WPF.View.Guest"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:wpf="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+        xmlns:menuNavigation="clr-namespace:MenuNavigation"
+        mc:Ignorable="d"
+        d:DesignHeight="680" d:DesignWidth="1130"
+        Title="ViewPage">
+    <Grid Background="{DynamicResource BackgroundColor}" Margin="5,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="500"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="250"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock   Foreground="{DynamicResource TextColor}" Grid.Row="0" Text="{Binding Accommodation.Name}" FontSize="25" FontWeight="Bold"/>
+            <WrapPanel Grid.Row="1" Margin="0,0,0,5">
+                <TextBlock   Foreground="{DynamicResource TextColor}" Text="{Binding Accommodation.City}" FontSize="18"/>
+                <TextBlock   Foreground="{DynamicResource TextColor}" Text=", " FontSize="18"/>
+                <TextBlock   Foreground="{DynamicResource TextColor}" Text="{Binding Accommodation.Country}" FontSize="18"/>
+            </WrapPanel>
+            <Grid Grid.Row="2">
+                <Grid.OpacityMask>
+                    <VisualBrush>
+                        <VisualBrush.Visual>
+                            <Border Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}" 
+                                Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Grid}}" 
+                                Background="Black" 
+                                CornerRadius="10" />
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </Grid.OpacityMask>
+                <ContentControl Content="{Binding CurrentImage}">
+                    <ContentControl.ContentTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding}" Stretch="UniformToFill"/>
+                        </DataTemplate>
+                    </ContentControl.ContentTemplate>
+                </ContentControl>
+                <Button Cursor="Hand" Command="{Binding PreviousCommand}" Grid.Column="0" Width="20" Height="20" HorizontalAlignment="Left">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <ContentPresenter Content="{TemplateBinding Content}"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Opacity" Value="1"/>
+                                </Trigger>
+                                <DataTrigger Binding="{Binding ImageCount}" Value="1">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <wpf:MaterialIcon Kind="ArrowLeftBold" />
+                </Button>
+                <Button Cursor="Hand" Command="{Binding NextCommand}" HorizontalAlignment="Right" Width="20" Height="20">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <ContentPresenter Content="{TemplateBinding Content}"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Opacity" Value="1"/>
+                                </Trigger>
+                                <DataTrigger Binding="{Binding ImageCount}" Value="1">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <wpf:MaterialIcon Kind="ArrowRightBold" />
+                </Button>
+            </Grid>
+            <StackPanel Grid.Row="3" Orientation="Horizontal">
+                <Label  Foreground="{DynamicResource TextColor}" Content="{menuNavigation:Loc MaxGuestText}" FontSize="14" FontWeight="DemiBold"/>
+                <TextBlock   Foreground="{DynamicResource TextColor}" Text="{Binding Accommodation.MaxGuests}" FontSize="14" VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Grid.Row="4" Orientation="Horizontal">
+                <Label  Foreground="{DynamicResource TextColor}" Content="{menuNavigation:Loc HostText}" FontSize="14" FontWeight="DemiBold"/>
+                <TextBlock   Foreground="{DynamicResource TextColor}" Text="{Binding OwnerName}" FontSize="14" VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Grid.Row="5">
+                <Label  Foreground="{DynamicResource TextColor}" Content="{menuNavigation:Loc DescriptionText}" FontSize="14" FontWeight="DemiBold"></Label>
+                <Border Background="Transparent" BorderBrush="{DynamicResource BorderColor}" BorderThickness="2" CornerRadius="5">
+                    <TextBlock   Foreground="{DynamicResource TextColor}"  Background="Transparent" Text="{Binding Accommodation.Description}" FontSize="16" TextWrapping="Wrap" Margin="5"/>
+                </Border>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Foreground="{DynamicResource TextColor}" Grid.Row="1" Content="{menuNavigation:Loc MakeReservation}" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+            <Label Foreground="{DynamicResource TextColor}" Grid.Row="2"  Content="{menuNavigation:Loc ChosePeriod}" FontSize="16" FontWeight="DemiBold" Margin="50,0,0,5"/>
+            <StackPanel Grid.Row="3" Orientation="Horizontal"  Margin="50,0,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <Label Foreground="{DynamicResource TextColor}" FontWeight="DemiBold"  FontSize="15" Content="{menuNavigation:Loc Checkin}"></Label>
+                    <DatePicker SelectedDate="{Binding Reservation.CheckIn}"  Height="25" Width="95" BorderThickness="0" VerticalContentAlignment="Bottom" FontWeight="DemiBold">
+                    </DatePicker>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Label Foreground="{DynamicResource TextColor}" FontWeight="DemiBold" FontSize="15" Content="{menuNavigation:Loc Checkout}"></Label>
+                    <DatePicker SelectedDate="{Binding Reservation.CheckOut}" Height="25" Width="95" BorderThickness="0" VerticalContentAlignment="Bottom" FontWeight="DemiBold">
+                        <DatePicker.Style>
+                            <Style TargetType="{x:Type DatePicker}">
+                                <Style.Resources>
+                                    <Style TargetType="DatePickerTextBox">
+                                        <Setter Property="Background" Value="{DynamicResource BackgroundColor}"/>
+                                    </Style>
+                                </Style.Resources>
+                                <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
+                            </Style>
+                        </DatePicker.Style>
+                    </DatePicker>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="4" Margin="50,10,0,0">
+                <Label Foreground="{DynamicResource TextColor}" FontSize="15" FontWeight="DemiBold" Content="{menuNavigation:Loc Guests}"  Width="250"></Label>
+                <Border BorderThickness="0"  Margin="0,0,5,0">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Foreground="{DynamicResource TextColor}" VerticalAlignment="Center" Padding="0"/>
+                        <xctk:IntegerUpDown Foreground="{DynamicResource TextColor}" Background="Transparent" Minimum="1" Text="{Binding Reservation.GuestCount, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"  BorderThickness="0,0,0,2" BorderBrush="{DynamicResource BorderColor}" Width="60">
+                            <xctk:IntegerUpDown.Style>
+                                <Style TargetType="xctk:IntegerUpDown">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="Validation.HasError" Value="True">
+                                            <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                                            <Setter Property="BorderBrush" Value="Red"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </xctk:IntegerUpDown.Style>
+                        </xctk:IntegerUpDown>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="5" Margin="50,10,0,0">
+                <Label Foreground="{DynamicResource TextColor}" FontSize="15" FontWeight="DemiBold" Content="{menuNavigation:Loc Days}" Width="250"></Label>
+                <Border BorderThickness="0"  Margin="0,0,5,0">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Foreground="{DynamicResource TextColor}" VerticalAlignment="Center" Padding="0"/>
+                        <xctk:IntegerUpDown Foreground="{DynamicResource TextColor}" Background="Transparent" Minimum="1" Text="{Binding Reservation.StayLength}" BorderThickness="0,0,0,2" BorderBrush="{DynamicResource BorderColor}" Width="60">
+                            <xctk:IntegerUpDown.Style>
+                                <Style TargetType="xctk:IntegerUpDown">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                </Style>
+                            </xctk:IntegerUpDown.Style>
+                        </xctk:IntegerUpDown>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+            <Button Grid.Row ="6" Cursor="Hand" Style="{StaticResource GuestButtonStyle}" Margin="0,10,0,10" Command="{Binding SearchCommand}" HorizontalAlignment="Center" Width="150" FontWeight="DemiBold" FontSize="15">
+                <TextBlock Text="{menuNavigation:Loc SearchBtn}" Foreground="Black"></TextBlock>
+            </Button>
+            <Label Foreground="{DynamicResource TextColor}" Grid.Row="7"  FontSize="16" HorizontalAlignment="Center"  FontWeight="DemiBold" Content="{menuNavigation:Loc Choose}"></Label>
+            <Border Grid.Row="8" BorderThickness="2" BorderBrush="{DynamicResource BorderColor}" Height="100" Width="300" CornerRadius="10">
+                <ListView Background="Transparent" BorderThickness="0" ItemsSource="{Binding SearchedDates}" SelectedItem="{Binding SelectedDate}" Height="90" Width="290" HorizontalAlignment="Center" HorizontalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock   Foreground="{DynamicResource TextColor}" Text="{Binding Item1, StringFormat=d}" FontWeight="DemiBold" FontSize="15"/>
+                                <TextBlock   Foreground="{DynamicResource TextColor}" Text=" - "  FontWeight="DemiBold" FontSize="15"/>
+                                <TextBlock   Foreground="{DynamicResource TextColor}" Text="{Binding Item2, StringFormat=d}" FontWeight="DemiBold" FontSize="15"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="LightGray" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListViewItem">
+                                                <Border Background="{TemplateBinding Background}" BorderBrush="Transparent" BorderThickness="1" CornerRadius="10">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="LightBlue" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListViewItem">
+                                                <Border Background="{TemplateBinding Background}" BorderBrush="Transparent" BorderThickness="1" CornerRadius="10">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.Resources>
+                        <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource GuestScroll}"></Style>
+                        <Style TargetType="{x:Type Thumb}" BasedOn="{StaticResource GuestScrollBarThumb}"></Style>
+                    </ListView.Resources>
+                </ListView>
+
+            </Border>
+            <Button Grid.Row="9" Cursor="Hand" Style="{StaticResource GuestButtonStyle}" Margin="0,10,0,10" HorizontalAlignment="Center" Width="150" FontWeight="DemiBold" FontSize="15" Command="{Binding ReserveCommand}">
+                <TextBlock Text="{menuNavigation:Loc ReserveBtn}" Foreground="Black"></TextBlock>
+
+            </Button>
+        </Grid>
+    </Grid>
+</Page>

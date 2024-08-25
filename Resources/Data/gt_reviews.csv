@@ -1,0 +1,10 @@
+Id|TourId|TouristId|RatingGuideKnowledge|RatingGuideLanguageSkills|RatingTour|Comment|PictureIds|IsValid
+1|1|4|3|3|3|Okej tura||False
+2|1|2|2|2|3|Nikako nam se nije dopalo, lose jako||False
+3|2|4|5|2|5|Malo samo jezik da se popravi sve ostalo je slay||True
+4|3|4|5|2|4|Bus je 0||True
+5|1|3|2|2|3|ocaj||True
+6|1|5|5|5|10|Sve pohvale||True
+7|1|2|4|5|8|Bez komentara||False
+8|1|1|0|1|7|UZAS||True
+9|1|4|4|3|8|Bez komentara||False

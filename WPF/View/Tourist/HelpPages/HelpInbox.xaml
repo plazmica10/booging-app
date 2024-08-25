@@ -1,0 +1,31 @@
+﻿<Page
+x:Class="BookingApp.WPF.View.Tourist.HelpPages.HelpInbox"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+xmlns:local="clr-namespace:BookingApp.WPF.View.Tourist.HelpPages"
+mc:Ignorable="d" 
+d:DesignWidth="430"
+d:DesignHeight="750"
+Title="HelpInbox"
+>
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="HelpPagesStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Style="{StaticResource PageGrid}">
+        <Border Style="{StaticResource HelpBorder}">
+            <StackPanel>
+                <TextBlock Style="{StaticResource HelpHeader}" Text="📥 Inbox"/>
+                <TextBlock Style="{StaticResource HelpBody}"
+                           Text="View received messages on the Inbox page. You can also see which vouchers you have. When new tours get created you will be notified there."/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>

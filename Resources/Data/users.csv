@@ -1,0 +1,5 @@
+Id|Username|Password|FirstName|LastName|Email|Phone|Role|IsSuperUser|BonusPoints|Photo|HasFirstLoginHappened
+1|2|2|Ivan|Novakovic|ivan@gmail.com|0635619321|Owner|False|0|1|True
+2|1|1|Ognjen|Stancevic|ogi@gmail.com|0693511191|Guest|False|0|1|True
+3|a|a|tea|jov|tea@gmail.com|0629847261|Guide|False|0|1|True
+4|b|b|pera|peric|pera@gmail.com|0613945812|Tourist|False|0|1|True

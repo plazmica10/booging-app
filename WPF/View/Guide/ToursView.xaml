@@ -1,0 +1,73 @@
+﻿<Page x:Class="BookingApp.WPF.View.Guide.ToursView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="1300"
+      Title="My tours">
+
+    <Page.Resources>
+        <Style x:Key="Shortcut"  TargetType="TextBlock">
+            <Setter Property="Width" Value="26"/>
+            <Setter Property="Background" Value="#edb458"/>
+            <Setter Property="Foreground" Value="#bb4d00"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+
+        </Style>
+        <Style  TargetType="MenuItem">
+            <Setter Property="Background" Value="#fffcd1"/>
+            <Setter Property="BorderBrush" Value="#a89668"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Foreground" Value="#a89668"/>
+            <Setter Property="Padding" Value="2 0 2 0"/>
+            <Setter Property="Margin" Value="10 0 0 0"/>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="Gray"/>
+                    <Setter Property="Background" Value="#F0F0F0"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="#fbfdfe" IsEnabled="{Binding IsPageEnabled}">
+        <DockPanel >
+            <StackPanel  DockPanel.Dock="Top"  Height="38" Margin="0,10,0,0">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Menu  Background="#fbfdfe" Grid.Column="0" >
+                        <MenuItem Header="Show To_day" Command="{Binding ShowTodayCommand}" IsEnabled="{Binding IsShowTodayEnabled}" />
+                    </Menu>
+                    <TextBlock Margin="0 24 -80 0" Grid.Column="0"  Style="{StaticResource Shortcut}">alt+D</TextBlock>
+
+                    <Menu  Background="#fbfdfe" Grid.Column="1">
+                    <MenuItem Header="Show _All"  Command="{Binding ShowAllCommand}" IsEnabled="{Binding IsShowAllEnabled}" />
+                    </Menu>
+                    <TextBlock  Margin="0 24 -50 0"  Grid.Column="1"  Style="{StaticResource Shortcut}">alt+A</TextBlock>
+
+                    <Menu  Background="#fbfdfe" Grid.Column="2">
+                <MenuItem Header="Show _Finished" Command="{Binding ShowFinishedCommand}" IsEnabled="{Binding IsShowFinishedEnabled}" />
+                    </Menu>
+                    <TextBlock Margin="0 24 -100 0" Grid.Column="2"  Style="{StaticResource Shortcut}">alt+F</TextBlock>
+
+                    <Menu  Background="#fbfdfe" Grid.Column="3">
+                    <MenuItem Header="Show Started To_ur" Command="{Binding ShowStartedTourCommand}" IsEnabled="{Binding IsShowStartedTourEnabled}" />
+                   </Menu>
+                    <TextBlock  Margin="0 24 -130 0" Grid.Column="3"  Style="{StaticResource Shortcut}">alt+U</TextBlock>
+
+                </Grid>
+            </StackPanel>
+
+            <Frame x:Name="ToursFrame" NavigationUIVisibility="Hidden"/>
+
+        </DockPanel>
+    </Grid>
+</Page>

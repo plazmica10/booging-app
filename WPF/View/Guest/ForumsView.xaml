@@ -1,0 +1,134 @@
+﻿<Page x:Class="BookingApp.WPF.View.Guest.ForumsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.WPF.View.Guest"
+      xmlns:wpf="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+      xmlns:menuNavigation="clr-namespace:MenuNavigation"
+      mc:Ignorable="d" 
+      d:DesignHeight="680" d:DesignWidth="1100"
+      Title="ForumsView">
+
+    <Grid Background="{DynamicResource BackgroundColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="5,0,0,0">
+            <Label  Foreground="{DynamicResource TextColor}" FontSize="30" FontWeight="Bold" Content="{menuNavigation:Loc Start}"></Label>
+            <Button Cursor="Hand" Margin="0,0,5,0" Background="Transparent" Command="{Binding AddForumCommand}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter Content="{TemplateBinding Content}"/>
+                    </ControlTemplate>
+                </Button.Template>
+                <wpf:MaterialIcon Foreground="{DynamicResource TextColor}" Background="Transparent" Kind="PlusCircleOutline" Margin="5,0,0,0" Height="35" Width="35" HorizontalAlignment="Right"/>
+            </Button>
+        </StackPanel>
+        <Label  Foreground="{DynamicResource TextColor}" Grid.Row="1"  Margin="5,0,0,0" FontSize="25" FontWeight="Bold" Content="{menuNavigation:Loc YourForum}"></Label>
+        <Grid Grid.Row="2" Margin="10,0,0,5" Width="650" HorizontalAlignment="Left">
+            <Border Background="Transparent" Width="650" Height="150" CornerRadius="20" BorderThickness="2" BorderBrush="{DynamicResource  BorderColor}">
+                <ListView Background="Transparent" BorderThickness="0" ItemsSource="{Binding MyForums}" Width="635" Height="120" SelectedItem="{Binding SelectedMyForum}" ItemTemplate="{StaticResource GuestForumsTemplate}">
+                    <ListView.Resources>
+                        <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource GuestScroll}"></Style>
+                        <Style TargetType="{x:Type Thumb}" BasedOn="{StaticResource GuestScrollBarThumb}"></Style>
+                    </ListView.Resources>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="LightGray" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListViewItem">
+                                                <Border Background="{TemplateBinding Background}" BorderBrush="Transparent" BorderThickness="1" CornerRadius="10">
+                                                    <ContentPresenter />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="LightBlue" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListViewItem">
+                                                <Border Background="{TemplateBinding Background}" BorderBrush="Transparent" BorderThickness="1" CornerRadius="10">
+                                                    <ContentPresenter />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </Border>
+        </Grid>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="4" Margin="10,0,0,0" >
+            <Button Cursor="Hand" Margin="0,0,5,0" Command="{Binding ViewCommand}" Style="{StaticResource GuestButtonStyle}" FontWeight="DemiBold">
+                <TextBlock Padding="5,0,5,0" Text="{menuNavigation:Loc ViewBtn}" Foreground="Black"></TextBlock>
+            </Button>
+            <Button Cursor="Hand" Margin="0,0,5,0" Command="{Binding CloseForumCommand}" Style="{StaticResource GuestButtonStyle}" FontWeight="DemiBold">
+                <TextBlock Padding="5,0,5,0" Text="{menuNavigation:Loc CloseBtn}" Foreground="Black"></TextBlock>
+            </Button>
+        </StackPanel>
+        <Label  Foreground="{DynamicResource TextColor}" Grid.Row="5" FontSize="25" FontWeight="Bold" Margin="5,0,0,0" Content="{menuNavigation:Loc OtherForum}"></Label>
+        <Grid Grid.Row="6" Margin="10,0,0,5" Width="650" HorizontalAlignment="Left">
+            <Border Background="Transparent" Width="650" Height="150" CornerRadius="20" BorderThickness="2" BorderBrush="{DynamicResource  BorderColor}">
+                <ListView Background="Transparent" BorderThickness="0"  Width="635" Height="120" ItemsSource="{Binding OtherForums}" SelectedItem="{Binding SelectedOtherForum}" ItemTemplate="{StaticResource GuestForumsTemplate}">
+                    <ListView.Resources>
+                        <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource GuestScroll}"></Style>
+                        <Style TargetType="{x:Type Thumb}" BasedOn="{StaticResource GuestScrollBarThumb}"></Style>
+                    </ListView.Resources>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="LightGray" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListViewItem">
+                                                <Border Background="{TemplateBinding Background}" BorderBrush="Transparent" BorderThickness="1" CornerRadius="10">
+                                                    <ContentPresenter />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="LightBlue" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListViewItem">
+                                                <Border Background="{TemplateBinding Background}" BorderBrush="Transparent" BorderThickness="1" CornerRadius="10">
+                                                    <ContentPresenter />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </Border>
+        </Grid>
+        <StackPanel Orientation="Horizontal" Grid.Row="7" Margin="10,0,0,0">
+            <Button Cursor="Hand" Margin="0,0,5,0" Command="{Binding OthersViewCommand}" Style="{StaticResource GuestButtonStyle}" FontWeight="DemiBold">
+                <TextBlock Padding="5,0,5,0" Text="{menuNavigation:Loc ViewBtn}"  Foreground="Black"></TextBlock>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Page>

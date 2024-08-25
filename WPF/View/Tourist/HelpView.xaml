@@ -1,0 +1,50 @@
+﻿<Page
+x:Class="BookingApp.WPF.View.Tourist.HelpView"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+xmlns:local="clr-namespace:BookingApp.WPF.View.Tourist"
+xmlns:command="clr-namespace:BookingApp.Command"
+xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
+mc:Ignorable="d"
+d:DesignWidth="430"
+d:DesignHeight="750"
+Title="ℹ️ Help"
+>
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="HelpViewStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+        <DockPanel Margin="60 0 0 0">
+            <Frame x:Name="HelpFrame" NavigationUIVisibility="Hidden"/>
+        </DockPanel>
+
+        <Border Name="SideMenu" Style="{StaticResource SideMenuBorderStyle}">
+            <Menu VerticalAlignment="Top">
+                <MenuItem Header="ℹ️ General Help" Command="{Binding NavigateCommand}" CommandParameter="General" />
+                <MenuItem Header="🚂 Tours" Command="{Binding NavigateCommand}" CommandParameter="Tours" />
+                <MenuItem Header="👤 My Tours" Command="{Binding NavigateCommand}" CommandParameter="MyTours" />
+                <MenuItem Header="📥 Inbox" Command="{Binding NavigateCommand}" CommandParameter="Inbox" />
+                <MenuItem Header="🎫 Vouchers" Command="{Binding NavigateCommand}" CommandParameter="Vouchers" />
+                <MenuItem Header="🙏 Normal Requests" Command="{Binding NavigateCommand}" CommandParameter="NormalRequests" />
+                <MenuItem Header="✈️ Complex Requests" Command="{Binding NavigateCommand}" CommandParameter="ComplexRequests" />
+            </Menu>
+        </Border>
+    </Grid>
+
+
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="SideMenu">
+            <BeginStoryboard Storyboard="{StaticResource ShowMenuStoryboard}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave" SourceName="SideMenu">
+            <BeginStoryboard Storyboard="{StaticResource HideMenuStoryboard}"/>
+        </EventTrigger>
+    </Page.Triggers>
+</Page>

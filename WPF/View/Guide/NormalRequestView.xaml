@@ -1,0 +1,238 @@
+﻿<Page x:Class="BookingApp.WPF.View.Guide.NormalRequestView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookingApp.WPF.View.Guide"
+      xmlns:converters="clr-namespace:BookingApp.WPF.View.Guide.Converters"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1500"
+      Title="NormalRequestView">
+    <Page.Resources>
+        <converters:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter"/>
+        <Style x:Key="Title" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="TextAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="#1b2d72"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="#a89668"/>
+            <Setter Property="Background" Value="#fffcd1"/>
+            <Setter Property="BorderBrush" Value="#a89668"/>
+        </Style>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#fffcd1"/>
+            <Setter Property="BorderBrush" Value="#a89668"/>
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="Foreground" Value="#a89668"/>
+        </Style>
+        <Style TargetType="TextBlock">
+                <Setter Property="FontSize" Value="25"/>
+        </Style>
+    </Page.Resources>
+    <Grid Background="#fbfdfe">
+
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top" Margin="0,5,0,0">
+                <Grid Height="35" Width="1350">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="130" />
+                        <ColumnDefinition Width="0*" />
+                        <ColumnDefinition Width="350"/>
+                        <ColumnDefinition Width="90" />
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="60"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ComboBox SelectedIndex="{Binding Path=SearchType}" FontWeight="Bold" Foreground="#1b2d72" Margin="2"  FontSize="20" Grid.Column="0">
+                        <ComboBoxItem Content="Location"/>
+                        <ComboBoxItem Content="Language"/>
+                    </ComboBox>
+                    <local:AutoCompleteLocation Margin="0 3 0 0" FontSize="20" x:Name="AutoCompleteLocationControl" Grid.Column="1" Grid.ColumnSpan="2" 
+                                                SelectedLocation="{Binding SelectedLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                Visibility="{Binding LocationControlVisibility}" />
+                    <local:AutoCompleteLanguage Margin="0 3 0 0" FontSize="20" x:Name="AutoCompleteLanguageControl" Grid.Column="1" Grid.ColumnSpan="2" 
+                                                SelectedLanguage="{Binding SelectedLanguage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                Visibility="{Binding LanguageControlVisibility}" />
+
+<TextBlock Grid.Column="3" Style="{StaticResource Title}" Text="From : "/>
+                    <DatePicker SelectedDate="{Binding FilterSpanStart}" Grid.Column="4" FontSize="20"/>
+
+                    <TextBlock Grid.Column="5" Style="{StaticResource Title}" Text="To : "/>
+                    <DatePicker SelectedDate="{Binding FilterSpanEnd}" Grid.Column="6" FontSize="20"/>
+
+                    <TextBlock Grid.Column="7" Style="{StaticResource Title}" Text="People Count : "/>
+
+                    <Grid Grid.Column="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox PreviewTextInput="NumericOnlyTextBox_PreviewTextInput" FontSize="20" Width="80" Grid.Column="0" Text="{Binding Path=FilterPeopleCount}" TextAlignment="Center" Margin="0,5,0,0"/>
+                        <StackPanel Grid.Column="1" Margin="0 5 0 0" >
+                            <RepeatButton Background="#fffcd1" BorderBrush="#a89668" Foreground="#a89668" Content="&#x25B2;" FontSize="8" Width="26" Height="15" Command="{Binding IncreaseDurationCommand}" CommandParameter="1"/>
+                            <RepeatButton Background="#fffcd1" BorderBrush="#a89668" Foreground="#a89668" Content="&#x25BC;" FontSize="8" Width="26" Height="15" Command="{Binding DecreaseDurationCommand}" CommandParameter="1"/>
+                        </StackPanel>
+                    </Grid>
+                    <Button  Margin="15 0 0 0" Grid.Column="9" FontSize="20" Command="{Binding SearchCommand}">🔍</Button>
+                </Grid>
+            </StackPanel>
+
+            <StackPanel  DockPanel.Dock="Right" Background="#fbfdfe"  >
+                <Border Visibility="{Binding ToursSelected ,Converter={StaticResource ObjectToVisibilityConverter}}" Background="#fdfefe" Height="620" BorderBrush="DarkGray" BorderThickness="1.5" Margin="10">
+                    <StackPanel Margin="10" Width="600">
+                        <TextBlock FontSize="40" FontWeight="Bold"  Text="{Binding Name}" />
+                        <StackPanel  Margin="0 20 0  0" Orientation="Vertical" >
+                            <TextBlock Text="Description: " FontWeight="Bold"></TextBlock>
+                            <Border BorderBrush="silver" BorderThickness="1">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <TextBlock  Height="120" Text="{Binding Description}" />
+                        </ScrollViewer>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Number of people: " FontWeight="Bold"></TextBlock>
+                        <TextBlock Text="{Binding PeopleCount}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Location:    " FontWeight="Bold"></TextBlock>
+                            <TextBlock Text="{Binding Location}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Language:  " FontWeight="Bold"></TextBlock>
+                            <TextBlock Text="{Binding Language}" />
+                        </StackPanel>
+                        <StackPanel Margin="10 20 10 10" Orientation="Horizontal">
+
+                            <TextBlock Foreground="Tomato" FontWeight="Bold" FontSize="20" Text="Requested date:   "></TextBlock>
+
+                            <TextBlock Foreground="Tomato" FontSize="20" Text="{Binding SpanStart}" />
+                            <TextBlock  Foreground="Tomato" FontSize="20" Text=" ➡️ "></TextBlock>
+
+                            <TextBlock Foreground="Tomato" FontSize="20" Text="{Binding SpanEnd}" />
+                        </StackPanel>
+                        <StackPanel Margin="10">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Foreground="RoyalBlue"  FontSize="20" FontWeight="Bold" Text="Available date:    "></TextBlock>
+                                <DatePicker FontSize="20" SelectedDate="{Binding SelectedStartsAt}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin=" 0 10 0  10">
+                                <TextBlock Foreground="RoyalBlue" FontSize="20" FontWeight="Bold" Text="Available time:    "></TextBlock>
+
+                                <TextBox FontSize="20" Text="{Binding SelectedTime}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Foreground="RoyalBlue" FontSize="20" FontWeight="Bold" Text="Duration:             "></TextBlock>
+
+                                <TextBox PreviewTextInput="NumericOnlyTextBox_PreviewTextInput" Width="60" FontSize="20" Text="{Binding Path=SelectedDuration}"/>
+                                <StackPanel  Margin="0 0 0 0" >
+                                    <RepeatButton Background="#fffcd1" BorderBrush="#a89668" Foreground="#a89668" Content="&#x25B2;" FontSize="10" Width="26" Height="17" Command="{Binding IncreaseMaxTouristsCommand}" CommandParameter="1"/>
+                                    <RepeatButton Background="#fffcd1" BorderBrush="#a89668" Foreground="#a89668" Content="&#x25BC;" FontSize="10" Width="26" Height="17" Command="{Binding DecreaseMaxTouristsCommand}" CommandParameter="1"/>
+                                </StackPanel>
+                            </StackPanel>
+
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="155 0 10 0">
+                        <Button Margin="0,20,0,10" Width="200" Command="{Binding ApproveCommand}" Style="{StaticResource ButtonStyle}" Content="Accept" VerticalAlignment="Top"/>
+                        <Button Margin="30,20,0,10" Width="200" Style="{StaticResource ButtonStyle}" Command="{Binding RejectCommand}"  Content="Reject"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+
+            <DataGrid  Height="670"  ItemsSource="{Binding Requests}" SelectedItem="{Binding RequestsSelected}"
+                      IsReadOnly="True" SelectionMode="Single" 
+                      AutoGenerateColumns="False" HeadersVisibility="Column" FontSize="15"
+                      HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,10,10,3" Background="#f7f4f2"
+                      ScrollViewer.CanContentScroll="True" 
+                       ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     >
+
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        <Setter Property="Background" Value="#b5b3b5" />
+                        <Setter Property="Foreground" Value="White"/>
+
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="BorderThickness" Value="0 0 1 1" />
+                        <Setter Property="Background" Value="#fdfcfb"/>
+                        <Setter Property="Foreground" Value="#a4948c" />
+
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#bae9e5"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </Style.Triggers>
+
+
+                    </Style>
+                </DataGrid.CellStyle>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" Header=" Request Name" Binding="{Binding Name}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Width="*" Header="Location" Binding="{Binding Location}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Width="*" Header="Language" Binding="{Binding Language}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Width="*" Header="Span Start" Binding="{Binding SpanStart}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Width="*" Header="Span End" Binding="{Binding SpanEnd}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Width="*" Header="Num of People" Binding="{Binding PeopleCount}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+
+            </DataGrid>
+
+        </DockPanel>
+    </Grid>
+</Page>
